@@ -1,0 +1,48 @@
+<Window x:Class="AvaloniaDemo.MainWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:AvaloniaDemo.ViewModels"
+    Title="AvaloniaDemo"
+    d:DesignHeight="450"
+    d:DesignWidth="400"
+    x:DataType="vm:MainWindowViewModel"
+    mc:Ignorable="d">
+    <Window.DataContext>
+        <vm:MainWindowViewModel />
+    </Window.DataContext>
+    <StackPanel>
+        <StackPanel.Styles>
+            <!--  让带有 h1 样式类的 TextBlock 具有 24 点的字体大小  -->
+            <Style Selector="TextBox.h1">
+                <Setter Property="FontSize" Value="24" />
+                <Setter Property="Foreground" Value="DarkBlue" />
+                <Setter Property="Background" Value="LightGray" />
+                <Setter Property="FontWeight" Value="Bold" />
+            </Style>
+        </StackPanel.Styles>
+        <StackPanel.DataTemplates>
+            <DataTemplate DataType="vm:Person">
+                <Border Background="Red" CornerRadius="8">
+                    <TextBox Text="{Binding Name}" />
+                </Border>
+            </DataTemplate>
+        </StackPanel.DataTemplates>
+        <Border Margin="5" Background="LightBlue" CornerRadius="10">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Greeting}" />
+        </Border>
+        <!--  注释  -->
+        <Grid Margin="5" ColumnDefinitions="120,100" RowDefinitions="Auto,Auto,Auto">
+            <Label Grid.Row="0" Grid.Column="0" Margin="10">First Number:</Label>
+            <TextBox Name="Celsius" Grid.Row="0" Grid.Column="1"
+                Margin="0,5" Classes="h1" />
+            <Label Grid.Row="1" Grid.Column="0" Margin="10">Second Number:</Label>
+            <TextBox Name="Fahrenheit" Grid.Row="1" Grid.Column="1"
+                Margin="0,5" IsReadOnly="True" />
+            <Button Grid.Row="2" Grid.Column="1" Click="Button_OnClick"
+                Content="Calculate" />
+            <ContentControl Grid.Row="3" Grid.Column="0" Content="{Binding person}" />
+        </Grid>
+    </StackPanel>
+</Window>

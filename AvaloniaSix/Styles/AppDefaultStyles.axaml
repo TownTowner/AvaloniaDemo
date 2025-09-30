@@ -1,0 +1,111 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Design.PreviewWith>
+    <Border Padding="20" Background="{DynamicResource PrimaryBackgroundGradient}" Width="200">
+      <!-- Add Controls for Previewer Here -->
+
+      <Grid RowDefinitions="*,Auto,Auto">
+        <StackPanel Spacing="12">
+          <Button >
+            <StackPanel Orientation="Horizontal">
+              <Label Classes="nerd" Content="Home" />
+            </StackPanel>
+          </Button>
+          <Button HorizontalAlignment="Stretch">
+            <StackPanel Orientation="Horizontal">
+              <Label Classes="nerd" Content="Home"/>
+            </StackPanel>
+          </Button>
+          <Button HorizontalAlignment="Stretch">
+            <StackPanel Orientation="Horizontal">
+              <Label Classes="icon" Content="&#xe2c2;"/>
+              <Label Classes="nerd" Content="Home" />
+            </StackPanel>
+          </Button>
+          <Button HorizontalAlignment="Stretch">
+            <StackPanel Orientation="Horizontal">
+              <Label Classes="icon" Content="&#xe2c2;"/>
+              <Label Classes="nerd" Content="Home" />
+            </StackPanel>
+          </Button>
+          <Button HorizontalAlignment="Stretch">
+            <StackPanel Orientation="Horizontal">
+              <Label Classes="icon" Content="&#xe2c2;"/>
+              <Label Classes="nerd" Content="Home" />
+            </StackPanel>
+          </Button>
+
+        </StackPanel>
+
+        <Button Grid.Row="1">
+          <StackPanel Orientation="Horizontal">
+            <Label Classes="icon-only" Content="&#xe272;"/>
+          </StackPanel>
+        </Button>
+
+        <Button Grid.Row="2" Classes="transparent">
+          <StackPanel Orientation="Horizontal">
+            <Label Classes="icon-only" Content="&#xe272;"/>
+          </StackPanel>
+        </Button>
+      </Grid>
+
+    </Border>
+  </Design.PreviewWith>
+
+  <!-- Add Styles Here -->
+  <Style Selector="Window">
+    <Setter Property="FontFamily" Value="{DynamicResource Nerd}"></Setter>
+  </Style>
+
+  <Style Selector="Label.icon, Label.icon-only">
+    <Setter Property="FontFamily" Value="{DynamicResource PhosphorFill}"></Setter>
+    <Setter Property="FontSize" Value="19"/>
+    <Setter Property="Padding" Value="0 8.5 0 0"></Setter>
+    <Setter Property="Margin" Value="0 -3 5 0"/>
+  </Style>
+
+  <Style Selector="Label.icon-only">
+    <Setter Property="Margin" Value="0"></Setter>
+  </Style>
+
+  <Style Selector="Label.nerd">
+    <Setter Property="FontFamily" Value="{DynamicResource Nerd}"/>
+    <Setter Property="Padding" Value="0 3.5 0 -3.5"></Setter>
+  </Style>
+
+  <Style Selector="Button">
+    <Setter Property="FontSize" Value="20"/>
+    <Setter Property="Padding" Value="9 0 9 5"/>
+    <Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"/>
+    <Setter Property="Background" Value="{DynamicResource PrimaryBackground}"/>
+  </Style>
+
+  <Style Selector="Button /template/ ContentPresenter">
+    <Setter Property="Transitions">
+      <Transitions>
+        <BrushTransition Property="Background" Duration="0:0:0.2"/>
+        <BrushTransition Property="Foreground" Duration="0:0:0.2"/>
+        <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2"/>
+      </Transitions>
+    </Setter>
+  </Style>
+
+  <Style Selector="Button:pointerover /template/ ContentPresenter">
+    <Setter Property="Foreground" Value="{DynamicResource PrimaryHoverForeground}"/>
+    <Setter Property="Background" Value="{DynamicResource PrimaryHoverBackground}"/>
+  </Style>
+  
+  <Style Selector="Button.transparent:pointerover /template/ ContentPresenter">
+    <Setter Property="RenderTransform" Value="scale(1.1)"/>
+  </Style>
+  
+    <Style Selector="Button.transparent">
+    <Setter Property="Background" Value="Transparent"/>
+  </Style>
+
+  <Style Selector="Button.transparent:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="Transparent"/>
+  </Style>
+
+</Styles>
