@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using AvaloniaSix.ViewModels;
+using AvaloniaSix.Views;
 
 namespace AvaloniaSix
 {

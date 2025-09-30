@@ -3,7 +3,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:AvaloniaSix.ViewModels"
-        x:Class="AvaloniaSix.MainWindow"
+        xmlns:view="clr-namespace:AvaloniaSix.Views"
+        x:Class="AvaloniaSix.Views.MainWindow"
         x:DataType="vm:MainViewModel"
         mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="600"
         Width="1024" Height="600"
@@ -15,21 +16,23 @@
   
   <Grid Background="{DynamicResource PrimaryBackground}" ColumnDefinitions="Auto,*">
 
+    <ContentControl Grid.Column="1" Content="{Binding CurrentPage}"></ContentControl>
+    
     <Border Padding="20" Background="{DynamicResource PrimaryBackgroundGradient}">
       <Grid RowDefinitions="*,Auto">
         
         <StackPanel Spacing="12">
           <!--<Image PointerPressed="Image_PointerPressed" Source="{Binding SideMenuImg}" Width="220" />-->
-          <Image PointerPressed="Image_PointerPressed" Source="{SvgImage Assets/Images/banner.svg}" Width="220" IsVisible="{Binding SideMenuExpanded}"/>
-          <Image PointerPressed="Image_PointerPressed" Source="{SvgImage Assets/Images/logo.svg}" Width="22"  IsVisible="{Binding !SideMenuExpanded}"/>
+          <Image PointerPressed="Image_PointerPressed" Source="{SvgImage /Assets/Images/banner.svg}" Width="220" IsVisible="{Binding SideMenuExpanded}"/>
+          <Image PointerPressed="Image_PointerPressed" Source="{SvgImage /Assets/Images/logo.svg}" Width="22"  IsVisible="{Binding !SideMenuExpanded}"/>
 
-          <Button HorizontalAlignment="Stretch">
+          <Button HorizontalAlignment="Stretch" Classes.active="{Binding HomePageIsActive}" Command="{Binding GoToHomeCommand}">
             <StackPanel Orientation="Horizontal">
               <Label Classes="icon" Content="&#xe2c2;"/>
               <Label Classes="nerd" Content="Home" IsVisible="{Binding SideMenuExpanded}"/>
             </StackPanel>
           </Button>
-          <Button HorizontalAlignment="Stretch">
+          <Button HorizontalAlignment="Stretch" Classes.active="{Binding ProcessPageIsActive}" Command="{Binding GoToProcessCommand}">
             <StackPanel Orientation="Horizontal">
               <Label Classes="icon" Content="&#xe610;"/>
               <Label Classes="nerd" Content="Process" IsVisible="{Binding SideMenuExpanded}"/>

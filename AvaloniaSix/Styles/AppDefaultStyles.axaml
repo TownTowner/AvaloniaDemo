@@ -55,7 +55,15 @@
 
   <!-- Add Styles Here -->
   <Style Selector="Window">
-    <Setter Property="FontFamily" Value="{DynamicResource Nerd}"></Setter>
+    <!--<Setter Property="FontFamily" Value="{DynamicResource Nerd}"></Setter>-->
+  </Style>
+
+  <Style Selector="Border">
+    <Setter Property="Transitions">
+      <Transitions>
+        <DoubleTransition Property="Width" Duration="0:0:1"/>
+      </Transitions>
+    </Setter>
   </Style>
 
   <Style Selector="Label.icon, Label.icon-only">
@@ -95,12 +103,16 @@
     <Setter Property="Foreground" Value="{DynamicResource PrimaryHoverForeground}"/>
     <Setter Property="Background" Value="{DynamicResource PrimaryHoverBackground}"/>
   </Style>
+
+  <Style Selector="Button.active /template/ ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource PrimaryActiveBackground}"/>
+  </Style>
   
   <Style Selector="Button.transparent:pointerover /template/ ContentPresenter">
     <Setter Property="RenderTransform" Value="scale(1.1)"/>
   </Style>
-  
-    <Style Selector="Button.transparent">
+
+  <Style Selector="Button.transparent">
     <Setter Property="Background" Value="Transparent"/>
   </Style>
 
