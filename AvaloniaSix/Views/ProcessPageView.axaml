@@ -4,11 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:AvaloniaSix.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="AvaloniaSix.Views.ProcessPageView">
+             x:Class="AvaloniaSix.Views.ProcessPageView"
+             x:DataType="vm:ProcessPageViewModel"
+             >
   <Design.DataContext>
     <vm:ProcessPageViewModel/>
   </Design.DataContext>
-  
-  Welcome to Process page!
-  
+
+  <TextBlock Text="{Binding PageName}" />
+
 </UserControl>

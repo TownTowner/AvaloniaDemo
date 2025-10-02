@@ -4,12 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:AvaloniaSix.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="AvaloniaSix.Views.HomePageView"
-             x:DataType="vm:HomePageViewModel"
+             x:Class="AvaloniaSix.Views.ReporterPageView"
+             x:DataType="vm:ReporterPageViewModel"
              >
   <Design.DataContext>
-    <vm:HomePageViewModel/>
+    <vm:ReporterPageViewModel/>
   </Design.DataContext>
 
-  <TextBlock Text="{Binding PageName}" />
+  <TextBlock Text="{Binding PageName}"/>
 </UserControl>

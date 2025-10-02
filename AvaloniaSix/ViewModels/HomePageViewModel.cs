@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AvaloniaSix.Data;
 
 namespace AvaloniaSix.ViewModels;
 
-public class HomePageViewModel : ViewModelBase
+public class HomePageViewModel : PageViewModel
 {
-    public string Test { get; set; } = "Home";
+    public HomePageViewModel()
+    {
+        PageName = ApplicationPageName.Home;
+    }
 }

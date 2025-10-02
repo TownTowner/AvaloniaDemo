@@ -26,37 +26,37 @@
           <Image PointerPressed="Image_PointerPressed" Source="{SvgImage /Assets/Images/banner.svg}" Width="220" IsVisible="{Binding SideMenuExpanded}"/>
           <Image PointerPressed="Image_PointerPressed" Source="{SvgImage /Assets/Images/logo.svg}" Width="22"  IsVisible="{Binding !SideMenuExpanded}"/>
 
-          <Button HorizontalAlignment="Stretch" Classes.active="{Binding HomePageIsActive}" Command="{Binding GoToHomeCommand}">
+          <Button HorizontalAlignment="Stretch" Classes.active="{Binding IsHomePage}" Command="{Binding GoToHomeCommand}">
             <StackPanel Orientation="Horizontal">
               <Label Classes="icon" Content="&#xe2c2;"/>
               <Label Classes="nerd" Content="Home" IsVisible="{Binding SideMenuExpanded}"/>
             </StackPanel>
           </Button>
-          <Button HorizontalAlignment="Stretch" Classes.active="{Binding ProcessPageIsActive}" Command="{Binding GoToProcessCommand}">
+          <Button HorizontalAlignment="Stretch" Classes.active="{Binding IsProcessPage}" Command="{Binding GoToProcessCommand}">
             <StackPanel Orientation="Horizontal">
               <Label Classes="icon" Content="&#xe610;"/>
               <Label Classes="nerd" Content="Process" IsVisible="{Binding SideMenuExpanded}"/>
             </StackPanel>
           </Button>
-          <Button HorizontalAlignment="Stretch">
+          <Button HorizontalAlignment="Stretch"  Classes.active="{Binding IsActionsPage}" Command="{Binding GoToActionsCommand}">
             <StackPanel Orientation="Horizontal">
               <Label Classes="icon" Content="&#xe7f2;"/>
               <Label Classes="nerd" Content="Actions" IsVisible="{Binding SideMenuExpanded}"/>
             </StackPanel>
           </Button>
-          <Button HorizontalAlignment="Stretch">
+          <Button HorizontalAlignment="Stretch"  Classes.active="{Binding IsMacrosPage}" Command="{Binding GoToMacrosCommand}">
             <StackPanel Orientation="Horizontal">
               <Label Classes="icon" Content="&#xe3ee;"/>
               <Label Classes="nerd" Content="Macros" IsVisible="{Binding SideMenuExpanded}"/>
             </StackPanel>
           </Button>
-          <Button HorizontalAlignment="Stretch">
+          <Button HorizontalAlignment="Stretch"  Classes.active="{Binding IsReporterPage}" Command="{Binding GoToReporterCommand}">
             <StackPanel Orientation="Horizontal">
               <Label Classes="icon" Content="&#xe344;"/>
               <Label Classes="nerd" Content="Reporter" IsVisible="{Binding SideMenuExpanded}"/>
             </StackPanel>
           </Button>
-          <Button HorizontalAlignment="Stretch">
+          <Button HorizontalAlignment="Stretch" Classes.active="{Binding IsHistoryPage}" Command="{Binding GoToHistoryCommand}">
             <StackPanel Orientation="Horizontal">
               <Label Classes="icon" Content="&#xe03a;"/>
               <Label Classes="nerd" Content="History" IsVisible="{Binding SideMenuExpanded}"/>
