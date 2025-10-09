@@ -82,14 +82,14 @@
     <Setter Property="Padding" Value="0 3.5 0 -3.5"></Setter>
   </Style>
 
-  <Style Selector="Button">
+  <Style Selector=":is(Button)">
     <Setter Property="FontSize" Value="20"/>
     <Setter Property="Padding" Value="9 0 9 5"/>
     <Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"/>
     <Setter Property="Background" Value="{DynamicResource PrimaryBackground}"/>
   </Style>
 
-  <Style Selector="Button /template/ ContentPresenter">
+  <Style Selector=":is(Button) /template/ ContentPresenter">
     <Setter Property="Transitions">
       <Transitions>
         <BrushTransition Property="Background" Duration="0:0:0.2"/>
@@ -99,24 +99,24 @@
     </Setter>
   </Style>
 
-  <Style Selector="Button:pointerover /template/ ContentPresenter">
+  <Style Selector=":is(Button):pointerover /template/ ContentPresenter">
     <Setter Property="Foreground" Value="{DynamicResource PrimaryHoverForeground}"/>
     <Setter Property="Background" Value="{DynamicResource PrimaryHoverBackground}"/>
   </Style>
 
-  <Style Selector="Button.active /template/ ContentPresenter">
+  <Style Selector=":is(Button).active /template/ ContentPresenter">
     <Setter Property="Background" Value="{DynamicResource PrimaryActiveBackground}"/>
   </Style>
   
-  <Style Selector="Button.transparent:pointerover /template/ ContentPresenter">
+  <Style Selector=":is(Button).transparent:pointerover /template/ ContentPresenter">
     <Setter Property="RenderTransform" Value="scale(1.1)"/>
   </Style>
 
-  <Style Selector="Button.transparent">
+  <Style Selector=":is(Button).transparent">
     <Setter Property="Background" Value="Transparent"/>
   </Style>
 
-  <Style Selector="Button.transparent:pointerover /template/ ContentPresenter">
+  <Style Selector=":is(Button).transparent:pointerover /template/ ContentPresenter">
     <Setter Property="Background" Value="Transparent"/>
   </Style>
 
