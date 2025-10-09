@@ -1,4 +1,5 @@
-﻿using AvaloniaSix.Data;
+﻿using Avalonia.Controls;
+using AvaloniaSix.Data;
 using AvaloniaSix.Factories;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -31,6 +32,15 @@ public partial class MainViewModel : ViewModelBase
     public bool IsReporterPage => CurrentPage.PageName == ApplicationPageName.Reporter;
     public bool IsSettingsPage => CurrentPage.PageName == ApplicationPageName.Settings;
 
+    /// <summary>
+    /// Design-time constructor.
+    /// </summary>
+    public MainViewModel()
+    {
+        // Parameterless constructor for design-time tools
+        if (Design.IsDesignMode)
+            CurrentPage = new SettingsPageViewModel();// Default page for design-time
+    }
 
     public MainViewModel(PageFactory pageFactory)
     {

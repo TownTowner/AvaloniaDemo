@@ -3,7 +3,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:AvaloniaSix.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="1400" d:DesignHeight="900"
+             Background="{DynamicResource PrimaryBackground}"
+             Foreground="{DynamicResource PrimaryForeground}"
              x:Class="AvaloniaSix.Views.SettingsPageView"
              x:DataType="vm:SettingsPageViewModel"
              >
@@ -11,5 +13,139 @@
     <vm:SettingsPageViewModel/>
   </Design.DataContext>
 
-  <TextBlock Text="{Binding PageName}" />
+  <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,*">
+    <!--Header-->
+    <Grid Name="HeaderGrid" Grid.ColumnSpan="2">
+      <Image Source="{SvgImage /Assets/Images/background-settings.svg}" Height="100" Stretch="UniformToFill"/>
+      <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Label HorizontalAlignment="Center" Content="Settings"/>
+        <Label HorizontalAlignment="Center" Content="Version 3.0.0.2 Beta"/>
+        <Label HorizontalAlignment="Center" Content="Compiled Nov 28 2024 03:14"/>
+      </StackPanel>
+    </Grid>
+
+    <!--Left Side-->
+    <StackPanel Grid.Column="0" Grid.Row="1" Spacing="15" Margin="15">
+      <!--General up-->
+      <StackPanel>
+        <Label Content="General"/>
+        <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto">
+          <!--Release License-->
+          <TextBlock TextWrapping="Wrap" Text="Remove license of BatchProcess from this machine and release the license back to the server ready to be transferred to another machine."/>
+          <Button Grid.Column="1" HorizontalAlignment="Stretch" >
+            <StackPanel Orientation="Horizontal">
+              <Label Classes="icon" Content="&#xe2fe;"/>
+              <Label Classes="nerd" Content="Release License" />
+            </StackPanel>
+          </Button>
+
+          <!--Skip files-->
+          <TextBlock Grid.Column="0" Grid.Row="1" TextWrapping="Wrap" Text="Skip files if only Open, Save (Optional) and Close are valid actions."/>
+          <CheckBox Grid.Column="1" Grid.Row="1"/>
+
+          <!--Duplicate files-->
+          <TextBlock Grid.Column="0" Grid.Row="2" TextWrapping="Wrap" Text="Allow duplicate entries of the same file in project list."/>
+          <CheckBox Grid.Column="1" Grid.Row="2"/>
+
+        </Grid>
+      </StackPanel>
+
+      <!--Locations-->
+      <StackPanel>
+        <Label Content="Locations"/>
+        <Grid ColumnDefinitions="*,Auto">
+          <StackPanel>
+            <TextBlock TextWrapping="Wrap" Text="Add or remove the locations to search for Reporter Templates, 
+Macros, Actions and other custom files or templates."/>
+            <TextBlock TextWrapping="Wrap" Text="* All sub-directories will be searched automatically"/>
+          </StackPanel>
+
+          <Button Grid.Column="1" HorizontalAlignment="Stretch" >
+            <StackPanel Orientation="Horizontal">
+              <Label Classes="nerd" Content="+ Folder" />
+            </StackPanel>
+          </Button>
+        </Grid>
+        <ListBox ItemsSource="{Binding Locations}">
+
+        </ListBox>
+      </StackPanel>
+
+    </StackPanel>
+
+    <!--Right Side-->
+    <StackPanel Grid.Column="1" Grid.Row="1" Spacing="15" Margin="15">
+      <!--SolidWorkds Host-->
+      <StackPanel>
+        <Label Content="SolidWorks Host"/>
+        <TextBlock TextWrapping="Wrap"  >
+          BatchProcess can work locally on the current machine, or on any machine accessible
+          over the network or even internet.<LineBreak /><LineBreak />
+
+          Enter the machines IP address, network name or localhost for this machine.
+        </TextBlock>
+        <ComboBox/>
+
+      </StackPanel>
+
+      <!--PDM Enterprise-->
+      <StackPanel Spacing="15">
+        <Label Content="PDM Enterprise"/>
+        <TextBlock TextWrapping="Wrap" Text="If you are using PDM Enterprise enter the credentials below and test login. BatchProcess can
+then automatically handle checking in and out files from PDM Enterprise."></TextBlock>
+        <Grid ColumnDefinitions="*,*,*">
+          <ComboBox Grid.Column="0" HorizontalAlignment="Stretch"/>
+          <TextBlock Grid.Column="1" Text="sss"/>
+          <TextBlock Grid.Column="2" Text="fff"/>
+        </Grid>
+        <StackPanel Orientation="Horizontal">
+          <Button Grid.Column="0" HorizontalAlignment="Stretch" >
+            <StackPanel Orientation="Horizontal">
+              <Label Classes="icon" Content="&#xe23e;"/>
+              <Label Classes="nerd" Content="Login" />
+            </StackPanel>
+          </Button>
+          <Button Grid.Column="1" HorizontalAlignment="Stretch" >
+            <StackPanel Orientation="Horizontal">
+              <Label Classes="icon" Content="&#xe094;"/>
+              <Label Classes="nerd" Content="Refresh Vault" />
+            </StackPanel>
+          </Button>
+          <Label Content="Connection established"/>
+        </StackPanel>
+        
+      </StackPanel>
+
+      <!--Settings Cache-->
+      <StackPanel Spacing="15">
+        <Label Content="Settings Cache"/>
+        <TextBlock TextWrapping="Wrap">
+          Various settings are stored locally including Processes, Actions, Macros, Reports and History.<LineBreak /><LineBreak />
+          If you are experiencing issues you can try clearing the cache (this won't remove the license).
+        </TextBlock>
+        <StackPanel Orientation="Horizontal">
+          <Button HorizontalAlignment="Stretch" >
+            <StackPanel Orientation="Horizontal">
+              <Label Classes="icon" Content="&#xec54;"/>
+              <Label Classes="nerd" Content="Clear Cache" />
+            </StackPanel>
+          </Button>
+          <Button HorizontalAlignment="Stretch" >
+            <StackPanel Orientation="Horizontal">
+              <Label Classes="icon" Content="&#xe5de;"/>
+              <Label Classes="nerd" Content="Clear Cache" />
+            </StackPanel>
+          </Button>
+          <Button HorizontalAlignment="Stretch" >
+            <StackPanel Orientation="Horizontal">
+              <Label Classes="icon" Content="&#xe20c;"/>
+              <Label Classes="nerd" Content="Clear Cache" />
+            </StackPanel>
+          </Button>
+        </StackPanel>
+
+      </StackPanel>
+      
+    </StackPanel>
+  </Grid>
 </UserControl>

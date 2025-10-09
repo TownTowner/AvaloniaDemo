@@ -6,8 +6,9 @@
         xmlns:view="clr-namespace:AvaloniaSix.Views"
         x:Class="AvaloniaSix.Views.MainWindow"
         x:DataType="vm:MainViewModel"
-        mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="600"
-        Width="1024" Height="600"
+        mc:Ignorable="d" d:DesignWidth="1400" d:DesignHeight="800"
+        Width="1400" Height="800"
+        MinWidth="1400" MinHeight="800"
         Title="AvaloniaSix">
   
   <Design.DataContext>
@@ -66,7 +67,7 @@
         </StackPanel>
 
 
-        <Button Classes="transparent" Grid.Row="1">
+        <Button Classes="transparent" Grid.Row="1" Command="{Binding GoToSettingsCommand}">
           <StackPanel Orientation="Horizontal">
             <Label Classes="icon-only" Content="&#xe272;"/>
           </StackPanel>
