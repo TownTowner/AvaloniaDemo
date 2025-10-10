@@ -6,35 +6,27 @@
 
       <Grid RowDefinitions="*,Auto,Auto">
         <StackPanel Spacing="12">
-          <Button >
+          <IconButton>
             <StackPanel Orientation="Horizontal">
               <Label Classes="nerd" Content="Home" />
             </StackPanel>
-          </Button>
+          </IconButton>
           <Button HorizontalAlignment="Stretch">
             <StackPanel Orientation="Horizontal">
               <Label Classes="nerd" Content="Home"/>
             </StackPanel>
           </Button>
-          <Button HorizontalAlignment="Stretch">
-            <StackPanel Orientation="Horizontal">
-              <Label Classes="icon" Content="&#xe2c2;"/>
-              <Label Classes="nerd" Content="Home" />
-            </StackPanel>
-          </Button>
-          <Button HorizontalAlignment="Stretch">
-            <StackPanel Orientation="Horizontal">
-              <Label Classes="icon" Content="&#xe2c2;"/>
-              <Label Classes="nerd" Content="Home" />
-            </StackPanel>
-          </Button>
-          <Button HorizontalAlignment="Stretch">
-            <StackPanel Orientation="Horizontal">
-              <Label Classes="icon" Content="&#xe2c2;"/>
-              <Label Classes="nerd" Content="Home" />
-            </StackPanel>
-          </Button>
 
+          <Button Content="Home Button" />
+          <Button Classes="small" Content="Home small" />
+          <Button Classes="subtle" Content="Default subtle" />
+          <Button Classes="outline" Content="Default outline" />
+          <Button Classes="alert" Content="Default alert" />
+          <Button Content="Default" />
+          
+          <IconButton IconText="&#xe2c2;" Content="Home" HorizontalAlignment="Stretch"/>
+          <IconButton IconText="&#xe2c2;" Content="Home" HorizontalAlignment="Stretch"/>
+          
         </StackPanel>
 
         <Button Grid.Row="1">
@@ -55,9 +47,15 @@
 
   <!-- Add Styles Here -->
   <Style Selector="Window">
-    <!--<Setter Property="FontFamily" Value="{DynamicResource Nerd}"></Setter>-->
+    <Setter Property="FontFamily" Value="{DynamicResource Nunito}"></Setter>
   </Style>
 
+  <Style Selector="Label.h2">
+    <Setter Property="Padding" Value="0 0 8 0"/>
+    <Setter Property="FontWeight" Value="Black"/>
+    <Setter Property="FontSize" Value="20"/>
+  </Style>
+  
   <Style Selector="Border">
     <Setter Property="Transitions">
       <Transitions>
@@ -79,37 +77,96 @@
 
   <Style Selector="Label.nerd">
     <Setter Property="FontFamily" Value="{DynamicResource Nerd}"/>
-    <Setter Property="Padding" Value="0 3.5 0 -3.5"></Setter>
+    <Setter Property="Padding" Value="0 5 0 5"></Setter>
   </Style>
 
+  <!--Button Styles-->
   <Style Selector=":is(Button)">
     <Setter Property="FontSize" Value="20"/>
-    <Setter Property="Padding" Value="9 0 9 5"/>
+    <Setter Property="FontWeight" Value="Bold"/>
+    <Setter Property="CornerRadius" Value="10"/>
+    <Setter Property="Padding" Value="9 5.5 9.2 5.5"/>
+    <Setter Property="BorderThickness" Value="3"/>
+  </Style>
+
+  <!--Small Button Styles-->
+  <Style Selector=":is(Button).small">
+    <Setter Property="FontSize" Value="14"/>
+    <Setter Property="CornerRadius" Value="6"/>
+    <Setter Property="Padding" Value="6 2 6 2"/>
+  </Style>
+
+  <!--Normal Button-->
+  <Style Selector=":is(Button)">
+    <Setter Property="Foreground" Value="{DynamicResource PrimaryBackground}"/>
+    <Setter Property="Background" Value="{DynamicResource PrimaryButtonBackgroundGradient}"/>
+  </Style>
+  
+  <!--Normal Button Hover-->
+  <Style Selector=":is(Button):pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource PrimaryButtonHoverGradient}"/>
+  </Style>
+  
+  <!--Alert Button-->
+  <Style Selector=":is(Button).alert">
+    <Setter Property="Foreground" Value="{DynamicResource PrimaryBackground}"/>
+    <Setter Property="Background" Value="{DynamicResource AlertButtonBackgroundGradient}"/>
+  </Style>
+  
+  <!--Alert Button Hover-->
+  <Style Selector=":is(Button).alert:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource AlertButtonHoverBackground}"/>
+  </Style>
+  
+  <!--Subtle Button-->
+  <Style Selector=":is(Button).subtle">
     <Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"/>
     <Setter Property="Background" Value="{DynamicResource PrimaryBackground}"/>
+  </Style>
+
+  <!--Subtle Button Hover-->
+  <Style Selector=":is(Button).subtle:pointerover /template/ ContentPresenter">
+    <Setter Property="Foreground" Value="{DynamicResource PrimaryHoverForeground}"/>
+    <Setter Property="Background" Value="{DynamicResource PrimaryHoverBackgroundGradient}"/>
+  </Style>
+
+  <!--Outline Button-->
+  <Style Selector=":is(Button).outline">
+    <Setter Property="Foreground" Value="{DynamicResource OutlineButtonForeground}"/>
+    <Setter Property="Background" Value="{DynamicResource PrimaryBackground}"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource PrimaryButtonBackgroundGradient}"/>
+  </Style>
+  
+  <!--Outline Button Hover-->
+  <Style Selector=":is(Button).outline:pointerover /template/ ContentPresenter">
+    <Setter Property="Foreground" Value="{DynamicResource PrimaryBackground}"/>
+    <Setter Property="Background" Value="{DynamicResource PrimaryButtonHoverGradient}"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource PrimaryButtonHoverGradient}"/>
+  </Style>
+
+
+  <!--Transparent Button Hover-->
+  <Style Selector=":is(Button).transparent:pointerover /template/ ContentPresenter">
+    <Setter Property="RenderTransform" Value="scale(1.1)"/>
   </Style>
 
   <Style Selector=":is(Button) /template/ ContentPresenter">
     <Setter Property="Transitions">
       <Transitions>
-        <BrushTransition Property="Background" Duration="0:0:0.2"/>
-        <BrushTransition Property="Foreground" Duration="0:0:0.2"/>
-        <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2"/>
+        <BrushTransition Property="Background" Duration="0:0:0.1"/>
+        <BrushTransition Property="Foreground" Duration="0:0:0.1"/>
+        <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.1"/>
       </Transitions>
     </Setter>
   </Style>
 
-  <Style Selector=":is(Button):pointerover /template/ ContentPresenter">
+  <!--<Style Selector=":is(Button):pointerover /template/ ContentPresenter">
     <Setter Property="Foreground" Value="{DynamicResource PrimaryHoverForeground}"/>
     <Setter Property="Background" Value="{DynamicResource PrimaryHoverBackground}"/>
-  </Style>
+  </Style>-->
 
   <Style Selector=":is(Button).active /template/ ContentPresenter">
     <Setter Property="Background" Value="{DynamicResource PrimaryActiveBackground}"/>
-  </Style>
-  
-  <Style Selector=":is(Button).transparent:pointerover /template/ ContentPresenter">
-    <Setter Property="RenderTransform" Value="scale(1.1)"/>
   </Style>
 
   <Style Selector=":is(Button).transparent">

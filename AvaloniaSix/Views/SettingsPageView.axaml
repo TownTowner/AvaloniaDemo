@@ -25,30 +25,29 @@
     </Grid>
 
     <!--Left Side-->
-    <StackPanel Grid.Column="0" Grid.Row="1" Spacing="15" Margin="15">
+    <StackPanel Grid.Column="0" Grid.Row="1" Spacing="15" Margin="25">
       <!--General up-->
       <StackPanel>
-        <Label Content="General"/>
-        <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto">
+        <Label Classes="h2" Content="General"/>
+        <Grid ColumnDefinitions="*, 16, Auto" RowDefinitions="Auto,16,Auto,16,Auto">
           <!--Release License-->
           <TextBlock TextWrapping="Wrap" Text="Remove license of BatchProcess from this machine and release the license back to the server ready to be transferred to another machine."/>
-          <IconButton IconText="&#xe2fe;" Content="Release License" Grid.Column="1" HorizontalAlignment="Stretch" >
-          </IconButton>
+          <IconButton IconText="&#xe2fe;" Content="Release License" Grid.Column="2" HorizontalAlignment="Stretch" />
 
           <!--Skip files-->
-          <TextBlock Grid.Column="0" Grid.Row="1" TextWrapping="Wrap" Text="Skip files if only Open, Save (Optional) and Close are valid actions."/>
-          <CheckBox Grid.Column="1" Grid.Row="1"/>
+          <TextBlock Grid.Column="0" Grid.Row="2" TextWrapping="Wrap" Text="Skip files if only Open, Save (Optional) and Close are valid actions."/>
+          <CheckBox Grid.Column="2" Grid.Row="2"/>
 
           <!--Duplicate files-->
-          <TextBlock Grid.Column="0" Grid.Row="2" TextWrapping="Wrap" Text="Allow duplicate entries of the same file in project list."/>
-          <CheckBox Grid.Column="1" Grid.Row="2"/>
+          <TextBlock Grid.Column="0" Grid.Row="4" TextWrapping="Wrap" Text="Allow duplicate entries of the same file in project list."/>
+          <CheckBox Grid.Column="2" Grid.Row="4"/>
 
         </Grid>
       </StackPanel>
 
       <!--Locations-->
       <StackPanel>
-        <Label Content="Locations"/>
+        <Label Classes="h2" Content="Locations"/>
         <Grid ColumnDefinitions="*,Auto">
           <StackPanel>
             <TextBlock TextWrapping="Wrap" Text="Add or remove the locations to search for Reporter Templates, 
@@ -56,11 +55,7 @@ Macros, Actions and other custom files or templates."/>
             <TextBlock TextWrapping="Wrap" Text="* All sub-directories will be searched automatically"/>
           </StackPanel>
 
-          <Button Grid.Column="1" HorizontalAlignment="Stretch" >
-            <StackPanel Orientation="Horizontal">
-              <Label Classes="nerd" Content="+ Folder" />
-            </StackPanel>
-          </Button>
+          <Button Grid.Column="1" Content="+ Folder" HorizontalAlignment="Stretch" Classes="outline small"/>
         </Grid>
         <ListBox ItemsSource="{Binding Locations}">
 
@@ -70,10 +65,10 @@ Macros, Actions and other custom files or templates."/>
     </StackPanel>
 
     <!--Right Side-->
-    <StackPanel Grid.Column="1" Grid.Row="1" Spacing="15" Margin="15">
+    <StackPanel Grid.Column="1" Grid.Row="1" Spacing="15" Margin="25">
       <!--SolidWorkds Host-->
       <StackPanel>
-        <Label Content="SolidWorks Host"/>
+        <Label Classes="h2" Content="SolidWorks Host"/>
         <TextBlock TextWrapping="Wrap"  >
           BatchProcess can work locally on the current machine, or on any machine accessible
           over the network or even internet.<LineBreak /><LineBreak />
@@ -86,7 +81,7 @@ Macros, Actions and other custom files or templates."/>
 
       <!--PDM Enterprise-->
       <StackPanel Spacing="15">
-        <Label Content="PDM Enterprise"/>
+        <Label Classes="h2" Content="PDM Enterprise"/>
         <TextBlock TextWrapping="Wrap" Text="If you are using PDM Enterprise enter the credentials below and test login. BatchProcess can
 then automatically handle checking in and out files from PDM Enterprise."></TextBlock>
         <Grid ColumnDefinitions="*,*,*">
@@ -95,10 +90,8 @@ then automatically handle checking in and out files from PDM Enterprise."></Text
           <TextBlock Grid.Column="2" Text="fff"/>
         </Grid>
         <StackPanel Orientation="Horizontal">
-          <IconButton IconText="&#xe23e;" Content="Login" Grid.Column="0" HorizontalAlignment="Stretch" >
-          </IconButton>
-          <IconButton IconText="&#xe094;" Content="Refresh Vault" Grid.Column="1" HorizontalAlignment="Stretch" >
-          </IconButton>
+          <IconButton IconText="&#xe23e;" Content="Login" Grid.Column="0" HorizontalAlignment="Stretch" />
+          <IconButton IconText="&#xe094;" Content="Refresh Vault" Grid.Column="1" HorizontalAlignment="Stretch" Classes="outline"/>
           <Label Content="Connection established"/>
         </StackPanel>
         
@@ -106,18 +99,15 @@ then automatically handle checking in and out files from PDM Enterprise."></Text
 
       <!--Settings Cache-->
       <StackPanel Spacing="15">
-        <Label Content="Settings Cache"/>
+        <Label Classes="h2" Content="Settings Cache"/>
         <TextBlock TextWrapping="Wrap">
           Various settings are stored locally including Processes, Actions, Macros, Reports and History.<LineBreak /><LineBreak />
           If you are experiencing issues you can try clearing the cache (this won't remove the license).
         </TextBlock>
         <StackPanel Orientation="Horizontal">
-          <IconButton IconText="&#xec54;" Content="Clear Cache" HorizontalAlignment="Stretch" >
-          </IconButton>
-          <IconButton IconText="&#xe5de;" Content="Clear Cache" HorizontalAlignment="Stretch" >
-          </IconButton>
-          <IconButton IconText="&#xe20c;" Content="Clear Cache" HorizontalAlignment="Stretch" >
-          </IconButton>
+          <IconButton IconText="&#xec54;" Content="Clear Cache" HorizontalAlignment="Stretch" Classes="alert"/>
+          <IconButton IconText="&#xe5de;" Content="Export Cache" HorizontalAlignment="Stretch" />
+          <IconButton IconText="&#xe20c;" Content="Import Cache" HorizontalAlignment="Stretch" Classes="outline"/>
         </StackPanel>
 
       </StackPanel>

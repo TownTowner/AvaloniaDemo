@@ -29,14 +29,37 @@
       <GradientStop Offset="1" Color="#151e3e" />
     </LinearGradientBrush>
 
-    <SolidColorBrush x:Key="PrimaryHoverForeground">White</SolidColorBrush>
     <SolidColorBrush x:Key="PrimaryHoverBackground">#333B5A</SolidColorBrush>
     <SolidColorBrush x:Key="PrimaryActiveBackground">#6633dd</SolidColorBrush>
+    <SolidColorBrush x:Key="PrimaryHoverForeground">White</SolidColorBrush>
 
+    <LinearGradientBrush x:Key="PrimaryButtonBackgroundGradient" StartPoint="0%,0%" EndPoint="100%,0%">
+      <GradientStop Offset="0" Color="#00ffff" />
+      <GradientStop Offset="1" Color="#ff00ff" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="PrimaryButtonHoverGradient" StartPoint="0%,0%" EndPoint="100%,0%">
+      <GradientStop Offset="0" Color="#00ffff" />
+      <GradientStop Offset="1" Color="#00ffff" />
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="OutlineButtonForeground">#00ffff</SolidColorBrush>
+
+    <LinearGradientBrush x:Key="AlertButtonBackgroundGradient" StartPoint="0%,0%" EndPoint="100%,0%">
+      <GradientStop Offset="0" Color="#ffff00" />
+      <GradientStop Offset="1" Color="#ff8800" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="AlertButtonHoverBackground" StartPoint="0%,0%" EndPoint="100%,0%">
+      <GradientStop Offset="0" Color="#ffff00" />
+      <GradientStop Offset="1" Color="#ffff00" />
+    </LinearGradientBrush>
+    
     <FontFamily x:Key="Nerd">avares://AvaloniaSix/Assets/Fonts/0xProtoNerdFont-Regular.ttf#0xProto Nerd Font</FontFamily>
     <FontFamily x:Key="NerdBold">avares://AvaloniaSix/Assets/Fonts/0xProtoNerdFont-Bold.ttf#0xProto Nerd Font</FontFamily>
     <FontFamily x:Key="Phosphor">avares://AvaloniaSix/Assets/Fonts/Phosphor.ttf#Phosphor</FontFamily>
     <FontFamily x:Key="PhosphorFill">avares://AvaloniaSix/Assets/Fonts/Phosphor-Fill.ttf#Phosphor-Fill</FontFamily>
+    <FontFamily x:Key="Nunito">avares://AvaloniaSix/Assets/Fonts#Nunito</FontFamily>
 
   </Application.Resources>
 </Application>

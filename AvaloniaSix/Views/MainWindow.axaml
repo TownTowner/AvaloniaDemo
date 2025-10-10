@@ -39,37 +39,37 @@
               Classes.active="{Binding IsHomePage}"
               Command="{Binding GoToHomeCommand}"
               IconText="&#xe2c2;">
-            <Label Classes="nerd" Content="Home" IsVisible="{Binding SideMenuExpanded}" />
+            <Label Content="Home" IsVisible="{Binding SideMenuExpanded}" />
           </IconButton>
           <IconButton HorizontalAlignment="Stretch"
               Classes.active="{Binding IsProcessPage}"
               Command="{Binding GoToProcessCommand}"
               IconText="&#xe610;">
-            <Label Classes="nerd" Content="Process" IsVisible="{Binding SideMenuExpanded}" />
+            <Label Content="Process" IsVisible="{Binding SideMenuExpanded}" />
           </IconButton>
           <IconButton HorizontalAlignment="Stretch"
               Classes.active="{Binding IsActionsPage}"
               Command="{Binding GoToActionsCommand}"
               IconText="&#xe7f2;">
-            <Label Classes="nerd" Content="Actions" IsVisible="{Binding SideMenuExpanded}" />
+            <Label Content="Actions" IsVisible="{Binding SideMenuExpanded}" />
           </IconButton>
           <IconButton HorizontalAlignment="Stretch"
               Classes.active="{Binding IsMacrosPage}"
               Command="{Binding GoToMacrosCommand}"
               IconText="&#xe3ee;">
-            <Label Classes="nerd" Content="Macros" IsVisible="{Binding SideMenuExpanded}" />
+            <Label Content="Macros" IsVisible="{Binding SideMenuExpanded}" />
           </IconButton>
           <IconButton HorizontalAlignment="Stretch"
               Classes.active="{Binding IsReporterPage}"
               Command="{Binding GoToReporterCommand}"
               IconText="&#xe344;">
-            <Label Classes="nerd" Content="Reporter" IsVisible="{Binding SideMenuExpanded}" />
+            <Label Content="Reporter" IsVisible="{Binding SideMenuExpanded}" />
           </IconButton>
           <IconButton HorizontalAlignment="Stretch"
               Classes.active="{Binding IsHistoryPage}"
               Command="{Binding GoToHistoryCommand}"
               IconText="&#xe03a;">
-            <Label Classes="nerd" Content="History" IsVisible="{Binding SideMenuExpanded}" />
+            <Label Content="History" IsVisible="{Binding SideMenuExpanded}" />
           </IconButton>
         </StackPanel>
 
