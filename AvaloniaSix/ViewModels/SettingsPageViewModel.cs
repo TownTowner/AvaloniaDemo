@@ -15,7 +15,8 @@ public partial class SettingsPageViewModel : PageViewModel
         _locations = new List<string>
         {
             "C:\\Program Files\\REDACTED_PROJECT_NAME",
-            "D:\\Games\\REDACTED_PROJECT_NAME"
+            "D:\\Games\\REDACTED_PROJECT_NAME",
+            "E:\\Applications\\REDACTED_PROJECT_NAME"
         };
     }
 }

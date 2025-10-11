@@ -36,36 +36,42 @@
               Source="{SvgImage /Assets/Images/logo.svg}" />
 
           <IconButton HorizontalAlignment="Stretch"
+              Classes="subtle"
               Classes.active="{Binding IsHomePage}"
               Command="{Binding GoToHomeCommand}"
               IconText="&#xe2c2;">
             <Label Content="Home" IsVisible="{Binding SideMenuExpanded}" />
           </IconButton>
           <IconButton HorizontalAlignment="Stretch"
+              Classes="subtle"
               Classes.active="{Binding IsProcessPage}"
               Command="{Binding GoToProcessCommand}"
               IconText="&#xe610;">
             <Label Content="Process" IsVisible="{Binding SideMenuExpanded}" />
           </IconButton>
           <IconButton HorizontalAlignment="Stretch"
+              Classes="subtle"
               Classes.active="{Binding IsActionsPage}"
               Command="{Binding GoToActionsCommand}"
               IconText="&#xe7f2;">
             <Label Content="Actions" IsVisible="{Binding SideMenuExpanded}" />
           </IconButton>
           <IconButton HorizontalAlignment="Stretch"
+              Classes="subtle"
               Classes.active="{Binding IsMacrosPage}"
               Command="{Binding GoToMacrosCommand}"
               IconText="&#xe3ee;">
             <Label Content="Macros" IsVisible="{Binding SideMenuExpanded}" />
           </IconButton>
           <IconButton HorizontalAlignment="Stretch"
+              Classes="subtle"
               Classes.active="{Binding IsReporterPage}"
               Command="{Binding GoToReporterCommand}"
               IconText="&#xe344;">
             <Label Content="Reporter" IsVisible="{Binding SideMenuExpanded}" />
           </IconButton>
           <IconButton HorizontalAlignment="Stretch"
+              Classes="subtle"
               Classes.active="{Binding IsHistoryPage}"
               Command="{Binding GoToHistoryCommand}"
               IconText="&#xe03a;">
