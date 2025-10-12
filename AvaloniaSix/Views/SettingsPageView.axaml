@@ -79,7 +79,7 @@ Macros, Actions and other custom files or templates."/>
 
           Enter the machines IP address, network name or localhost for this machine.
         </TextBlock>
-        <ComboBox/>
+        <ComboBox ItemsSource="{Binding Locations}"/>
         <Label Classes="sub1 success" Content="Connection established" Margin="0 5 0 0"/>
 
       </StackPanel>
