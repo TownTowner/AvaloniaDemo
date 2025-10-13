@@ -39,7 +39,7 @@ public partial class MainViewModel : ViewModelBase
     {
         // Parameterless constructor for design-time tools
         if (Design.IsDesignMode)
-            CurrentPage = new SettingsPageViewModel();// Default page for design-time
+            CurrentPage = new ActionsPageViewModel();// Default page for design-time
     }
 
     public MainViewModel(PageFactory pageFactory)

@@ -28,12 +28,15 @@
         <MergeResourceInclude Source="Controls/ComboBoxItem.axaml" />
         <MergeResourceInclude Source="Controls/IconButton.axaml" />
         <MergeResourceInclude Source="Controls/ListBoxItem.axaml" />
+        <MergeResourceInclude Source="Controls/TabControl.axaml" />
+        <MergeResourceInclude Source="Controls/TabItem.axaml" />
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
 
     <Thickness x:Key="PrimaryBorderThickness">2</Thickness>
 
     <SolidColorBrush x:Key="PrimaryForeground">#CFCFCF</SolidColorBrush>
+    <SolidColorBrush x:Key="PrimaryForegroundSubtle">#aaa</SolidColorBrush>
     <SolidColorBrush x:Key="PrimaryBackground">#14172D</SolidColorBrush>
     
     <LinearGradientBrush x:Key="PrimaryBackgroundGradient" StartPoint="0%,0%" EndPoint="100%,0%">

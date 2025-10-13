@@ -62,7 +62,7 @@
 
   <!--Normal Button-->
   <Style Selector=":is(Button):not(CheckBox)">
-    <Setter Property="Foreground" Value="{DynamicResource PrimaryBackground}"/>
+    <Setter Property="Foreground" Value="{DynamicResource PrimaryForegroundSubtle}"/>
     <Setter Property="Background" Value="{DynamicResource ActiveGradient}"/>
   </Style>
 
