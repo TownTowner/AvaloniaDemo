@@ -54,6 +54,14 @@ public partial class App : Application
                 DataContext = services.GetRequiredService<MainViewModel>()
             };
         }
+        else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
+        {
+            singleViewPlatform.MainView = new MainView
+            {
+                DataContext = services.GetRequiredService<MainViewModel>()
+            };
+        }
+
 
         base.OnFrameworkInitializationCompleted();
     }
