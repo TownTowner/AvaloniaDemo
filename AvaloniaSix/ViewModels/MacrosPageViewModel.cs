@@ -2,10 +2,4 @@
 
 namespace AvaloniaSix.ViewModels;
 
-public class MacrosPageViewModel : PageViewModel
-{
-    public MacrosPageViewModel()
-    {
-        PageName = ApplicationPageName.Macros;
-    }
-}
+public class MacrosPageViewModel() : PageViewModel(ApplicationPageName.Macros);

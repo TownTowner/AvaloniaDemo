@@ -2,10 +2,4 @@
 
 namespace AvaloniaSix.ViewModels;
 
-public class HomePageViewModel : PageViewModel
-{
-    public HomePageViewModel()
-    {
-        PageName = ApplicationPageName.Home;
-    }
-}
+public class HomePageViewModel() : PageViewModel(ApplicationPageName.Home);

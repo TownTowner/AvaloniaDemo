@@ -4,8 +4,7 @@ namespace AvaloniaSix.ViewModels;
 
 public class ProcessPageViewModel : PageViewModel
 {
-    public ProcessPageViewModel()
+    public ProcessPageViewModel() : base(ApplicationPageName.Process)
     {
-        PageName = ApplicationPageName.Process;
     }
 }

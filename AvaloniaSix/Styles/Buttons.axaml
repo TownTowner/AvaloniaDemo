@@ -1,172 +1,219 @@
 <Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-  <Design.PreviewWith>
-    <Border Padding="20" Background="{DynamicResource PrimaryBackgroundGradient}"
-            Width="600">
-      <!-- Add Controls for Previewer Here -->
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<Design.PreviewWith>
+		<Border Padding="20" Background="{DynamicResource PrimaryBackgroundGradient}"
+				Width="600">
+			<!-- Add Controls for Previewer Here -->
 
-      <Grid ColumnDefinitions="*,*">
-        <StackPanel Spacing="12">
-          <Button Content="Home Button" />
-          <Button Classes="small" Content="Home small" />
-          <Button Classes="subtle" Content="Default subtle" />
-          <IconButton Classes="subtle" IconText="&#xe2c2;" Content="Icon subtle" />
-          <Button Classes="outline" Content="Default outline" />
-          <IconButton Classes="outline" IconText="&#xe2c2;" Content="Icon outline" />
-          <Button Classes="alert" Content="Default alert" />
-          <Button Content="Default" />
+			<Grid ColumnDefinitions="*,*">
+				<StackPanel Spacing="12">
+					<Button Content="Home Button" />
+					<Button Classes="small" Content="Home small" />
+					<Button Classes="smaller" Content="Home smaller" />
+					<Button Classes="subtle" Content="Default subtle" />
+					<IconButton Classes="subtle" IconText="&#xe2c2;" Content="Icon subtle" />
+					<Button Classes="outline" Content="Default outline" />
+					<IconButton Classes="outline" IconText="&#xe2c2;" Content="Icon outline" />
+					<Button Classes="success" Content="Default success" />
+					<IconButton Classes="success" IconText="&#xe2c2;" Content="Icon success" />
+					<Button Classes="danger" Content="Default danger" />
+					<IconButton Classes="danger" IconText="&#xe2c2;" Content="Icon danger" />
+					<Button Classes="alert" Content="Default alert" />
+					<IconButton Classes="alert" IconText="&#xe2c2;" Content="Icon alert" />
+					<Button Content="Default" />
 
-          <IconButton IconText="&#xe2c2;" Content="Home" HorizontalAlignment="Stretch"/>
-          <IconButton IconText="&#xe2c2;" Content="Home" HorizontalAlignment="Stretch"/>
+					<IconButton IconText="&#xe2c2;" Content="Home" HorizontalAlignment="Stretch"/>
+					<IconButton IconText="&#xe2c2;" Content="Home" HorizontalAlignment="Stretch"/>
 
-          <Button>
-            <StackPanel Orientation="Horizontal">
-              <Label Classes="icon-only" Content="&#xe272;"/>
-            </StackPanel>
-          </Button>
+					<Button>
+						<StackPanel Orientation="Horizontal">
+							<Label Classes="icon-only" Content="&#xe272;"/>
+						</StackPanel>
+					</Button>
 
-          <Button Classes="transparent">
-            <StackPanel Orientation="Horizontal">
-              <Label Classes="icon-only" Content="&#xe272;"/>
-            </StackPanel>
-          </Button>
+					<Button Classes="transparent">
+						<StackPanel Orientation="Horizontal">
+							<Label Classes="icon-only" Content="&#xe272;"/>
+						</StackPanel>
+					</Button>
 
-        </StackPanel>
+				</StackPanel>
 
-        <StackPanel Grid.Column="1">
-          <CheckBox/>
-          <CheckBox IsChecked="True">Content Checkbox</CheckBox>
-        </StackPanel>
+				<StackPanel Grid.Column="1">
+					<CheckBox/>
+					<CheckBox IsChecked="True">Content Checkbox</CheckBox>
+				</StackPanel>
 
-      </Grid>
-    </Border>
-  </Design.PreviewWith>
+			</Grid>
+		</Border>
+	</Design.PreviewWith>
 
-  <!-- Add Styles Here -->
+	<!-- Add Styles Here -->
 
-  <!--Button Styles-->
-  <Style Selector=":is(Button)">
-    <Setter Property="FontSize" Value="17"/>
-    <Setter Property="FontWeight" Value="Bold"/>
-    <Setter Property="CornerRadius" Value="10"/>
-    <Setter Property="Padding" Value="9 5.5 9.2 5.5"/>
-    <Setter Property="BorderThickness" Value="3"/>
-  </Style>
+	<!--Button Styles-->
+	<Style Selector=":is(Button)">
+		<Setter Property="FontSize" Value="17"/>
+		<Setter Property="CornerRadius" Value="10"/>
+		<Setter Property="FontWeight" Value="Bold"/>
+		<Setter Property="Padding" Value="9 5.5 9.2 5.5"/>
+		<Setter Property="BorderThickness" Value="{DynamicResource PrimaryBorderThickness}"/>
+	</Style>
 
-  <!--Small Button Styles-->
-  <Style Selector=":is(Button).small">
-    <Setter Property="FontSize" Value="14"/>
-    <Setter Property="CornerRadius" Value="6"/>
-    <Setter Property="Padding" Value="6 2 6 2"/>
-  </Style>
+	<!--Small Button Styles-->
+	<Style Selector=":is(Button).small">
+		<Setter Property="FontSize" Value="14"/>
+		<Setter Property="CornerRadius" Value="6"/>
+		<Setter Property="Padding" Value="6 2 6 2"/>
+	</Style>
 
-  <!--Normal Button-->
-  <Style Selector=":is(Button):not(CheckBox)">
-    <Setter Property="Foreground" Value="{DynamicResource PrimaryForegroundSubtle}"/>
-    <Setter Property="Background" Value="{DynamicResource ActiveGradient}"/>
-  </Style>
+	<!--Smaller Button Styles-->
+	<Style Selector=":is(Button).smaller">
+		<Setter Property="FontSize" Value="12"/>
+		<Setter Property="CornerRadius" Value="5"/>
+		<Setter Property="Padding" Value="3 0 3 2"/>
+	</Style>
 
-  <!--Normal Button Hover-->
-  <Style Selector=":is(Button):not(CheckBox):pointerover /template/ ContentPresenter">
-    <Setter Property="Foreground" Value="{DynamicResource PrimaryBackground}"/>
-    <Setter Property="Background" Value="{DynamicResource ActiveHoverGradient}"/>
-  </Style>
-  <Style Selector=":is(Button):not(CheckBox):pointerover">
-    <Setter Property="Foreground" Value="{DynamicResource PrimaryBackground}"/>
-    <Setter Property="Background" Value="{DynamicResource ActiveHoverGradient}"/>
-  </Style>
+	<!--Normal Button-->
+	<Style Selector=":is(Button):not(CheckBox)">
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryForegroundSubtle}"/>
+		<Setter Property="Background" Value="{DynamicResource ActiveGradient}"/>
+	</Style>
 
-  <!--Alert Button-->
-  <Style Selector=":is(Button).alert">
-    <Setter Property="Foreground" Value="{DynamicResource PrimaryBackground}"/>
-    <Setter Property="Background" Value="{DynamicResource AlertGradient}"/>
-  </Style>
+	<!--Normal Button Hover-->
+	<Style Selector=":is(Button):not(CheckBox):pointerover /template/ ContentPresenter">
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"/>
+		<Setter Property="Background" Value="{DynamicResource ActiveHoverGradient}"/>
+	</Style>
+	<Style Selector=":is(Button):not(CheckBox):pointerover">
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"/>
+		<Setter Property="Background" Value="{DynamicResource ActiveHoverGradient}"/>
+	</Style>
 
-  <!--Alert Button Hover-->
-  <Style Selector=":is(Button).alert:pointerover /template/ ContentPresenter">
-    <Setter Property="Background" Value="{DynamicResource AlertHoverGradient}"/>
-  </Style>
-  <Style Selector=":is(Button).alert:pointerover">
-    <Setter Property="Background" Value="{DynamicResource AlertHoverGradient}"/>
-  </Style>
+	<!--Alert Button-->
+	<Style Selector=":is(Button).alert">
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryBackground}"/>
+		<Setter Property="Background" Value="{DynamicResource AlertGradient}"/>
+	</Style>
 
-  <!--Subtle Button-->
-  <Style Selector=":is(Button).subtle">
-    <Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"/>
-    <Setter Property="Background" Value="{DynamicResource PrimaryBackground}"/>
-  </Style>
+	<!--Alert Button Hover-->
+	<Style Selector=":is(Button).alert:pointerover /template/ ContentPresenter">
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryBackground}"/>
+		<Setter Property="Background" Value="{DynamicResource AlertHoverGradient}"/>
+	</Style>
+	<Style Selector=":is(Button).alert:pointerover">
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryBackground}"/>
+		<Setter Property="Background" Value="{DynamicResource AlertGradient}"/>
+	</Style>
 
-  <!--Subtle Button Hover-->
-  <Style Selector=":is(Button).subtle:pointerover /template/ ContentPresenter">
-    <Setter Property="Foreground" Value="{DynamicResource PrimaryHoverForeground}"/>
-    <Setter Property="Background" Value="{DynamicResource PrimaryHoverBackgroundGradient}"/>
-  </Style>
-  <Style Selector=":is(Button).subtle:pointerover">
-    <Setter Property="Foreground" Value="{DynamicResource PrimaryHoverForeground}"/>
-    <Setter Property="Background" Value="{DynamicResource PrimaryHoverBackgroundGradient}"/>
-  </Style>
+	<!-- Danger button -->
+	<Style Selector=":is(Button).danger">
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryBackground}"></Setter>
+		<Setter Property="Background" Value="{DynamicResource DangerGradient}"></Setter>
+	</Style>
 
-  <!--Outline Button-->
-  <Style Selector=":is(Button).outline">
-    <Setter Property="Foreground" Value="{DynamicResource ActiveGradient}"/>
-    <Setter Property="Background" Value="{DynamicResource PrimaryBackground}"/>
-    <Setter Property="BorderBrush" Value="{DynamicResource ActiveGradient}"/>
-  </Style>
+	<!-- Danger button (hover) -->
+	<Style Selector=":is(Button).danger:pointerover /template/ ContentPresenter">
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryBackground}"></Setter>
+		<Setter Property="Background" Value="{DynamicResource DangerHoverGradient}"></Setter>
+	</Style>
+	<Style Selector=":is(Button).danger:pointerover">
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryBackground}"></Setter>
+		<Setter Property="Background" Value="{DynamicResource DangerGradient}"></Setter>
+	</Style>
 
-  <!--Outline Button Hover-->
-  <Style Selector=":is(Button).outline:pointerover /template/ ContentPresenter">
-    <Setter Property="Foreground" Value="{DynamicResource PrimaryBackground}"/>
-    <Setter Property="Background" Value="{DynamicResource ActiveHoverGradient}"/>
-    <Setter Property="BorderBrush" Value="{DynamicResource ActiveHoverGradient}"/>
-  </Style>
-  <Style Selector=":is(Button).outline:pointerover">
-    <Setter Property="Foreground" Value="{DynamicResource PrimaryBackground}"/>
-    <Setter Property="Background" Value="{DynamicResource ActiveHoverGradient}"/>
-    <Setter Property="BorderBrush" Value="{DynamicResource ActiveHoverGradient}"/>
-  </Style>
-  
-  <!--Transparent Button Hover-->
-  <Style Selector=":is(Button).transparent:pointerover /template/ ContentPresenter">
-    <Setter Property="RenderTransform" Value="scale(1.2)"/>
-    <Setter Property="Background" Value="Transparent"/>
-    <Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"/>
-  </Style>
-  <Style Selector=":is(Button).transparent:pointerover">
-    <Setter Property="RenderTransform" Value="scale(1.2)"/>
-    <Setter Property="Background" Value="Transparent"/>
-  </Style>
+	<!-- Success button -->
+	<Style Selector=":is(Button).success">
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryBackground}"></Setter>
+		<Setter Property="Background" Value="{DynamicResource SuccessGradient}"></Setter>
+	</Style>
 
-  <Style Selector=":is(Button) /template/ ContentPresenter">
-    <Setter Property="Transitions">
-      <Transitions>
-        <BrushTransition Property="Background" Duration="0:0:0.1"/>
-        <BrushTransition Property="Foreground" Duration="0:0:0.1"/>
-        <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.1"/>
-      </Transitions>
-    </Setter>
-  </Style>
-  <Style Selector=":is(Button)">
-    <Setter Property="Transitions">
-      <Transitions>
-        <BrushTransition Property="Background" Duration="0:0:0.1"/>
-        <BrushTransition Property="Foreground" Duration="0:0:0.1"/>
-        <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.1"/>
-      </Transitions>
-    </Setter>
-  </Style>
+	<!-- Success button (hover) -->
+	<Style Selector=":is(Button).success:pointerover /template/ ContentPresenter">
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryBackground}"></Setter>
+		<Setter Property="Background" Value="{DynamicResource SuccessHoverGradient}"></Setter>
+	</Style>
+	<Style Selector=":is(Button).alert:pointerover">
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryBackground}"></Setter>
+		<Setter Property="Background" Value="{DynamicResource SuccessHoverGradient}"></Setter>
+	</Style>
 
-  <Style Selector=":is(Button).active /template/ ContentPresenter">
-    <Setter Property="Background" Value="{DynamicResource HoverGradient}"/>
-    <Setter Property="Foreground" Value="{DynamicResource PrimaryBackground}"/>
-  </Style>
-  <Style Selector=":is(Button).active">
-    <Setter Property="Background" Value="{DynamicResource HoverGradient}"/>
-    <Setter Property="Foreground" Value="{DynamicResource PrimaryBackground}"/>
-  </Style>
+	<!--Subtle Button-->
+	<Style Selector=":is(Button).subtle">
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"/>
+		<Setter Property="Background" Value="{DynamicResource PrimaryBackground}"/>
+	</Style>
 
-  <Style Selector=":is(Button).transparent">
-    <Setter Property="Background" Value="Transparent"/>
-    <Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"/>
-  </Style>
+	<!--Subtle Button Hover-->
+	<Style Selector=":is(Button).subtle:pointerover /template/ ContentPresenter">
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryHoverForeground}"/>
+		<Setter Property="Background" Value="{DynamicResource PrimaryHoverBackground}"/>
+	</Style>
+	<Style Selector=":is(Button).subtle:pointerover">
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryHoverForeground}"/>
+		<Setter Property="Background" Value="{DynamicResource PrimaryHoverBackground}"/>
+	</Style>
+
+	<!--Outline Button-->
+	<Style Selector=":is(Button).outline">
+		<Setter Property="Foreground" Value="{DynamicResource ActiveGradient}"/>
+		<Setter Property="Background" Value="{DynamicResource PrimaryBackground}"/>
+		<Setter Property="BorderBrush" Value="{DynamicResource ActiveGradient}"/>
+	</Style>
+
+	<!--Outline Button Hover-->
+	<Style Selector=":is(Button).outline:pointerover /template/ ContentPresenter">
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryBackground}"/>
+		<Setter Property="Background" Value="{DynamicResource ActiveHoverGradient}"/>
+		<Setter Property="BorderBrush" Value="{DynamicResource ActiveHoverGradient}"/>
+	</Style>
+	<Style Selector=":is(Button).outline:pointerover">
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryBackground}"/>
+		<Setter Property="Background" Value="{DynamicResource ActiveHoverGradient}"/>
+		<Setter Property="BorderBrush" Value="{DynamicResource ActiveHoverGradient}"/>
+	</Style>
+
+	<!--Transparent Button Hover-->
+	<Style Selector=":is(Button).transparent:pointerover /template/ ContentPresenter">
+		<Setter Property="RenderTransform" Value="scale(1.2)"/>
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"/>
+	</Style>
+	<Style Selector=":is(Button).transparent:pointerover">
+		<Setter Property="RenderTransform" Value="scale(1.2)"/>
+		<Setter Property="Background" Value="Transparent"/>
+	</Style>
+
+	<Style Selector=":is(Button) /template/ ContentPresenter">
+		<Setter Property="Transitions">
+			<Transitions>
+				<BrushTransition Property="Background" Duration="0:0:0.1"/>
+				<BrushTransition Property="Foreground" Duration="0:0:0.1"/>
+				<TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.1"/>
+			</Transitions>
+		</Setter>
+	</Style>
+	<Style Selector=":is(Button)">
+		<Setter Property="Transitions">
+			<Transitions>
+				<BrushTransition Property="Background" Duration="0:0:0.1"/>
+				<BrushTransition Property="Foreground" Duration="0:0:0.1"/>
+				<TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.1"/>
+			</Transitions>
+		</Setter>
+	</Style>
+
+	<Style Selector=":is(Button).active /template/ ContentPresenter">
+		<Setter Property="Background" Value="{DynamicResource HoverGradient}"/>
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryBackground}"/>
+	</Style>
+	<Style Selector=":is(Button).active">
+		<Setter Property="Background" Value="{DynamicResource HoverGradient}"/>
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryBackground}"/>
+	</Style>
+
+	<Style Selector=":is(Button).transparent">
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"/>
+	</Style>
 
 </Styles>

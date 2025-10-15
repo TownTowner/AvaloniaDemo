@@ -1,85 +1,70 @@
 <Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-  <Design.PreviewWith>
-    <Border Padding="20" Background="{DynamicResource PrimaryBackgroundGradient}"
-            Width="600">
-      <!-- Add Controls for Previewer Here -->
-      <StackPanel Spacing="12">
-        <!--Label with icon will curse render incorrectly in previewer-->
-        <Label Classes="icon" Content="&#xe2c2; Home with Icon"/>
-        <Label Classes="icon-only" Content="&#xe2c2;"/>
-        <Label Classes="h1" Content="Label h1"/>
-        <Label Classes="h2" Content="Label h2"/>
-        <Label Classes="sub1" Content="Label sub1"/>
-        <Label Classes="sub2" Content="Label sub2"/>
-        <Label Classes="h1 success" Content="Label h1 success"/>
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<Design.PreviewWith>
+		<Border Padding="20" Background="{DynamicResource PrimaryBackgroundGradient}"
+				Width="600">
+			<!-- Add Controls for Previewer Here -->
+			<StackPanel Spacing="12">
+				<!--Label with icon will curse render incorrectly in previewer-->
+				<Label Classes="icon" Content="&#xe2c2; Home with Icon"/>
+				<Label Classes="icon-only" Content="&#xe2c2;"/>
+				<Label Classes="h1" Content="Label h1"/>
+				<Label Classes="h2" Content="Label h2"/>
+				<Label Classes="sub1" Content="Label sub1"/>
+				<Label Classes="sub2" Content="Label sub2"/>
+				<Label Classes="h1 success" Content="Label h1 success"/>
 
-        <Label Classes="nerd" Content="Nerd Font Icon: &#xf015;"/>
-      </StackPanel>
-    </Border>
-  </Design.PreviewWith>
+				<Label Classes="nerd" Content="Nerd Font Icon: &#xf015;"/>
+			</StackPanel>
+		</Border>
+	</Design.PreviewWith>
 
-  <!-- Add Styles Here -->
-  <Style Selector="Label">
-    <!--<Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"/>-->
-  </Style>
-  <Style Selector="Label.h2">
-    <Setter Property="Padding" Value="0 0 8 0"/>
-    <Setter Property="FontWeight" Value="Black"/>
-    <Setter Property="FontSize" Value="20"/>
-  </Style>
+	<!-- Add Styles Here -->
+	<Style Selector="Label.nerd">
+		<Setter Property="FontFamily" Value="{DynamicResource Nerd}"/>
+		<Setter Property="Padding" Value="0 5 0 5"></Setter>
+	</Style>
 
-  <Style Selector="Border">
-    <Setter Property="Transitions">
-      <Transitions>
-        <DoubleTransition Property="Width" Duration="0:0:1"/>
-      </Transitions>
-    </Setter>
-  </Style>
+	<Style Selector="Label.h1">
+		<Setter Property="FontSize" Value="34"/>
+		<Setter Property="FontWeight" Value="Bold"/>
+		<Setter Property="Margin" Value="0"/>
+		<Setter Property="Padding" Value="0"/>
+	</Style>
+	<Style Selector="Label.h2">
+		<Setter Property="Padding" Value="0 0 8 0"/>
+		<Setter Property="FontWeight" Value="Black"/>
+		<Setter Property="FontSize" Value="20"/>
+	</Style>
+	<Style Selector="Label.sub1">
+		<Setter Property="FontSize" Value="13"/>
+		<Setter Property="FontWeight" Value="Bold"/>
+		<Setter Property="Margin" Value="0 -5 0 0"/>
+		<Setter Property="Padding" Value="0"/>
+		<Setter Property="Foreground" Value="{DynamicResource AlertGradient}"/>
+	</Style>
+	<Style Selector="Label.sub2">
+		<Setter Property="FontSize" Value="11"/>
+		<Setter Property="Padding" Value="0"/>
+		<Setter Property="Margin" Value="0 -5 0 0"/>
+	</Style>
+	<Style Selector="Label.success">
+		<Setter Property="Foreground" Value="{DynamicResource SuccessGradient}"/>
+	</Style>
 
-  <Style Selector="Label.icon, Label.icon-only">
-    <Setter Property="FontFamily" Value="{DynamicResource PhosphorFill}, Segoe UI, Arial, sans-serif,Nerd"></Setter>
-    <Setter Property="FontSize" Value="19"/>
-    <Setter Property="Padding" Value="0 8.5 0 0"></Setter>
-    <Setter Property="Margin" Value="0 -3 5 0"/>
-  </Style>
 
-  <Style Selector="Label.icon-only">
-    <Setter Property="Margin" Value="0"></Setter>
-  </Style>
+	<Style Selector="Label.icon, Label.icon-only">
+		<Setter Property="FontFamily" Value="{DynamicResource PhosphorFill}"></Setter>
+		<Setter Property="FontSize" Value="19"/>
+		<Setter Property="Padding" Value="0 2.5 -0.4 3"></Setter>
+		<Setter Property="Margin" Value="0 0 5 0"/>
+	</Style>
 
-  <Style Selector="Label.nerd">
-    <Setter Property="FontFamily" Value="{DynamicResource Nerd}"/>
-    <Setter Property="Padding" Value="0 5 0 5"></Setter>
-  </Style>
+	<Style Selector="Label.icon-only">
+		<Setter Property="Margin" Value="0"></Setter>
+	</Style>
 
-  <Style Selector="Label.h1">
-    <Setter Property="FontSize" Value="34"/>
-    <Setter Property="FontWeight" Value="Black"/>
-    <Setter Property="Margin" Value="0"/>
-    <Setter Property="Padding" Value="0"/>
-    <Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"/>
-  </Style>
-  <Style Selector="Label.h2">
-    <Setter Property="FontSize" Value="24"/>
-    <Setter Property="FontWeight" Value="SemiBold"/>
-    <Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"/>
-  </Style>
-  <Style Selector="Label.sub1">
-    <Setter Property="FontSize" Value="13"/>
-    <Setter Property="FontWeight" Value="Bold"/>
-    <Setter Property="Margin" Value="0 -5 0 0"/>
-    <Setter Property="Padding" Value="0"/>
-    <Setter Property="Foreground" Value="{DynamicResource AlertGradient}"/>
-  </Style>
-  <Style Selector="Label.sub2">
-    <Setter Property="FontSize" Value="14"/>
-    <Setter Property="FontWeight" Value="Light"/>
-    <Setter Property="Margin" Value="0 -5 0 0"/>
-    <Setter Property="Padding" Value="0"/>
-    <Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"/>
-  </Style>
-  <Style Selector="Label.success">
-    <Setter Property="Foreground" Value="{DynamicResource SuccessGradient}"/>
-  </Style>
+	<Style Selector="Label.icon-outline">
+		<Setter Property="FontFamily" Value="{DynamicResource Phosphor}"></Setter>
+	</Style>
 </Styles>

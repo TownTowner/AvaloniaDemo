@@ -2,10 +2,4 @@
 
 namespace AvaloniaSix.ViewModels;
 
-public class HistoryPageViewModel : PageViewModel
-{
-    public HistoryPageViewModel()
-    {
-        PageName = ApplicationPageName.History;
-    }
-}
+public class HistoryPageViewModel() : PageViewModel(ApplicationPageName.History);

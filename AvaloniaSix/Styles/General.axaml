@@ -1,17 +1,23 @@
 <Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-  <Design.PreviewWith>
-    <Border Padding="20" Background="{DynamicResource PrimaryBackgroundGradient}"
-            Width="600">
-      <!-- Add Controls for Previewer Here -->
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<Design.PreviewWith>
+		<Border Padding="20" Background="{DynamicResource PrimaryBackgroundGradient}"
+				Width="600">
+			<!-- Add Controls for Previewer Here -->
+		</Border>
+	</Design.PreviewWith>
 
+	<!-- Add Styles Here -->
+	<Style Selector="Window">
+		<Setter Property="FontFamily" Value="{DynamicResource DefaultFont}"></Setter>
+	</Style>
 
-    </Border>
-  </Design.PreviewWith>
-
-  <!-- Add Styles Here -->
-  <Style Selector="Window">
-    <Setter Property="FontFamily" Value="{DynamicResource Nunito}"></Setter>
-  </Style>
+	<Style Selector="Border">
+		<Setter Property="Transitions">
+			<Transitions>
+				<DoubleTransition Property="Width" Duration="0:0:1"/>
+			</Transitions>
+		</Setter>
+	</Style>
 
 </Styles>

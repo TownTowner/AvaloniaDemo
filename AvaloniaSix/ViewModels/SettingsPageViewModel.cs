@@ -9,10 +9,9 @@ public partial class SettingsPageViewModel : PageViewModel
     [ObservableProperty]
     private List<string> _locations;
 
-    public SettingsPageViewModel()
+    public SettingsPageViewModel() : base(ApplicationPageName.Settings)
     {
-        PageName = ApplicationPageName.Settings;
-        _locations = new List<string>
+        Locations = new List<string>
         {
             "C:\\Program Files\\REDACTED_PROJECT_NAME",
             "D:\\Games\\REDACTED_PROJECT_NAME",

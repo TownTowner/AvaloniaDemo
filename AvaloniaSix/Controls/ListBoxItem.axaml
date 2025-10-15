@@ -38,6 +38,7 @@
     <!--  PointerOver state  -->
     <Style Selector="^:pointerover">
       <Setter Property="Background" Value="{DynamicResource PrimaryHoverBackground}" />
+      <Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}" />
     </Style>
 
     <!--  Pressed state  -->
