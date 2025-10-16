@@ -28,11 +28,11 @@
             "console": "internalConsole"
         },
         {
-            "name": "Debug Avalonia Six",
+            "name": "Debug Avalonia Six Desktop",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/AvaloniaSix/bin/Debug/net8.0/AvaloniaSix.dll",
+            "program": "${workspaceFolder}/AvaloniaSix.Desktop/bin/Debug/net8.0/AvaloniaSix.Desktop.dll",
             "args": [],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
@@ -42,11 +42,11 @@
             }
         },
         {
-            "name": "Run Avalonia Six Application",
+            "name": "Run Avalonia Six Desktop Application",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/AvaloniaSix/bin/Debug/net8.0/AvaloniaSix.dll",
+            "program": "${workspaceFolder}/AvaloniaSix.Desktop/bin/Debug/net8.0/AvaloniaSix.Desktop.dll",
             "args": [],
             "cwd": "${workspaceFolder}",
             "console": "internalConsole"

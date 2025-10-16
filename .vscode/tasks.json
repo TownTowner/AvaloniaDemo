@@ -67,6 +67,13 @@
 			"file": "D:\\Self\\VSProjects\\AvaloniaDemo\\AvaloniaSix\\AvaloniaSix.csproj",
 			"problemMatcher": [],
 			"label": "dotnet: watch AvaloniaSix"
+		},
+		{
+			"type": "dotnet",
+			"task": "watch AvaloniaSix.Desktop",
+			"file": "D:\\Self\\VSProjects\\AvaloniaDemo\\AvaloniaSix.Desktop\\AvaloniaSix.Desktop.csproj",
+			"problemMatcher": [],
+			"label": "dotnet: watch AvaloniaSix.Desktop"
 		}
 	]
 }

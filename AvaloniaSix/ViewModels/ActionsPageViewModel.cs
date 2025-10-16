@@ -13,6 +13,9 @@ public partial class ActionsPageViewModel() : PageViewModel(ApplicationPageName.
     [ObservableProperty]
     private ObservableCollection<ActionPrintViewModel> _printList;
 
+    [ObservableProperty]
+    private ActionPrintViewModel _selectedPrintItem;
+
     [RelayCommand]
     public void RefreshPrintList(ActionsTabName name)
     {
@@ -29,9 +32,10 @@ public partial class ActionsPageViewModel() : PageViewModel(ApplicationPageName.
     {
         PrintList = new ObservableCollection<ActionPrintViewModel>
         {
-            new() { Id = "1", JobName = "Print Job 1", IsSelected = false },
-            new() { Id = "2", JobName = "Print Job 2", IsSelected = true },
-            new() { Id = "3", JobName = "Print Job 3", IsSelected = false }
+            new() { Id = "1", JobName = "Print only drawings", IsSelected = false, PrintDrawingRange="0,5,7-8",IsPrintDrawing=true,Description="Prints only drawing files",
+            DrawingExclusionList=$"Some Text;{Environment.NewLine}Some Text;{Environment.NewLine}Some Text"},
+            new() { Id = "2", JobName = "Print ALL drawings scale to fit", IsSelected = true,IsPrintDrawing=true, Description="Prints drawing scaled to fit the paper"},
+            new() { Id = "3", JobName = "Print 3D Models A3", IsSelected = false, IsPrintModel=true,Description="Prints models as 3D visuals" }
         };
     }
 

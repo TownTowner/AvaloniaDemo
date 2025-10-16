@@ -37,6 +37,8 @@
                             DockPanel.Dock="{TemplateBinding TabStripPlacement}" />
             <ContentPresenter Name="PART_SelectedContentHost"
                               Margin="{TemplateBinding Padding}"
+                              Foreground="Red"
+                              Background="black"
                               HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                               VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                               Content="{TemplateBinding SelectedContent}"

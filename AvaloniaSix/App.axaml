@@ -11,7 +11,7 @@
 
 	<Application.Styles>
 		<FluentTheme />
-		<!--<StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>-->
+		<StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
 		<StyleInclude Source="Styles/Buttons.axaml" />
 		<StyleInclude Source="Styles/General.axaml" />
 		<StyleInclude Source="Styles/Labels.axaml" />
@@ -111,7 +111,7 @@
 		<FontFamily x:Key="Phosphor">avares://AvaloniaSix/Assets/Fonts/Phosphor.ttf#Phosphor</FontFamily>
 		<FontFamily x:Key="PhosphorFill">avares://AvaloniaSix/Assets/Fonts/Phosphor-Fill.ttf#Phosphor-Fill</FontFamily>
 
-		<FontFamily x:Key="DefaultFont">avares://AvaloniaSix/Assets/Fonts/NotoSansJP.ttf#Noto Sans JP Thin</FontFamily>
+		<FontFamily x:Key="DefaultFont">avares://AvaloniaSix/Assets/Fonts/NotoSansJP.ttf</FontFamily>
 
 	</Application.Resources>
 </Application>
