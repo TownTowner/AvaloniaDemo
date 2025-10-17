@@ -50,4 +50,16 @@ public partial class ActionsPageViewModel() : PageViewModel(ApplicationPageName.
         PrintList?.Remove(PrintList.FirstOrDefault(x => x.Id == id));
     }
 
+    [RelayCommand]
+    public void AddPrintItem()
+    {
+        var item = new ActionPrintViewModel()
+        {
+            IsSelected = true,
+            IsNewItem = true,
+            JobName = "New Job Print Item"
+        };
+        PrintList?.Add(item);
+    }
+
 }

@@ -24,15 +24,18 @@ public partial class ActionPrintViewModel : ViewModelBase
     private string _drawingExclusionList;
 
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(DrawingExlusionIsWhiteListTitle))]
+    [NotifyPropertyChangedFor(nameof(DrawingExlusionListTitle))]
     private bool _isDrawingExlusionIsWhiteList;
 
-    public string DrawingExlusionIsWhiteListTitle => IsDrawingExlusionIsWhiteList ? "White List" : "Black List";
+    public string DrawingExlusionListTitle => IsDrawingExlusionIsWhiteList ? "White List" : "Black List";
 
     [ObservableProperty]
     private bool _isPrintModel;
 
     [ObservableProperty]
     private bool _isPrintDrawing;
+
+    [ObservableProperty]
+    private bool _isNewItem;
 
 }

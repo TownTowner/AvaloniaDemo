@@ -46,7 +46,6 @@
             <DataTemplate DataType="x:Object">
               <StackPanel Orientation="Horizontal">
                 <Label VerticalAlignment="Center" Foreground="{Binding $parent[IconButton].Foreground}" Classes="icon" Content="{Binding $parent[IconButton].IconText}"/>
-                <!--ContentControl Foreground doesn't work-->
                 <ContentControl VerticalAlignment="Center" 
                                 Content="{Binding $parent[IconButton].Content}" 
                                 DataContext="{Binding $parent[IconButton].DataContext}"
