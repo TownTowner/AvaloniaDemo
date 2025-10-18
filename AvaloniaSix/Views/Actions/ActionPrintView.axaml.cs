@@ -16,11 +16,15 @@ public partial class ActionPrintView : UserControl
 
     private void PrintList_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-        var vm = e.AddedItems.Count > 0 ? e.AddedItems[0] : null;
-        if (vm is ActionPrintViewModel { IsNewItem: true })
+        var item = e.AddedItems.Count > 0 ? e.AddedItems[0] : null;
+        if (item is ActionPrintViewModel vm)
         {
-            JobNameTxt.SelectAll();
-            JobNameTxt.Focus();
+            if (vm.IsNewItem)
+            {
+                JobNameTxt.SelectAll();
+                JobNameTxt.Focus();
+            }
+            vm.SetSaveState();
         }
     }
 }
