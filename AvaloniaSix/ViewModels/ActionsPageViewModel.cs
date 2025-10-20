@@ -10,7 +10,7 @@ namespace AvaloniaSix.ViewModels;
 
 public partial class ActionsPageViewModel() : PageViewModel(ApplicationPageName.Actions)
 {
-    private ActionPrinterProfileViewModel defaultProfile = new() { Copies = 1, Name = "(Default)PDF Printer", Description = @"Virtual Printers\Microsoft PDF" };
+    private ActionPrinterProfileViewModel defaultProfile = new() { Id = "0", Copies = 1, Name = "(Default)PDF Printer", Description = @"Virtual Printers\Microsoft PDF" };
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(PrintListHasItems))]
@@ -19,7 +19,10 @@ public partial class ActionsPageViewModel() : PageViewModel(ApplicationPageName.
     public bool PrintListHasItems => PrintList?.Any() ?? false;
 
     [ObservableProperty]
-    private ActionPrintViewModel _selectedPrintItem;
+    [NotifyPropertyChangedFor(nameof(SelectedPrintItem))]
+    private string _selectedPrintItemId;
+
+    public ActionPrintViewModel SelectedPrintItem => PrintList?.FirstOrDefault(x => x.Id == SelectedPrintItemId);
 
     [ObservableProperty]
     private ObservableCollection<ActionPrinterProfileViewModel> _printerProfiles = [];
@@ -38,15 +41,23 @@ public partial class ActionsPageViewModel() : PageViewModel(ApplicationPageName.
     [RelayCommand]
     public void FetchPrintActionsData()
     {
+        PrinterProfiles = new ObservableCollection<ActionPrinterProfileViewModel>
+        {
+             defaultProfile,
+            new (){Id="1", Copies=3, Name="Office Printer", Description=@"Office-Printer\HP LaserJet"},
+            new (){Id="2", Copies=2, Name="Plotter", Description=@"Plotters\EPSON Stylus Pro"},
+            new(){Id="3", Copies=1, Name="Home Printer", Description=@"Home-Printer\Canon Pixma" }
+        };
+
         PrintList = new ObservableCollection<ActionPrintViewModel>
         {
-            new() { Id = "1", JobName = "Print only drawings", IsSelected = false, PrintDrawingRange="0,5,7-8",IsPrintDrawing=true,Description="Prints only drawing files",
+            new() { Id = "1", JobName = "Print only drawings",  PrintDrawingRange="0,5,7-8",IsPrintDrawing=true,Description="Prints only drawing files",
             DrawingExclusionList=$"Some Text;{Environment.NewLine}Some Text;{Environment.NewLine}Some Text",
-             PrinterProfile=defaultProfile},
-            new() { Id = "2", JobName = "Print ALL drawings scale to fit", IsSelected = true,IsPrintDrawing=true, Description="Prints drawing scaled to fit the paper",
-             PrinterProfile=defaultProfile},
-            new() { Id = "3", JobName = "Print 3D Models A3", IsSelected = false, IsPrintModel=true,Description="Prints models as 3D visuals",
-             PrinterProfile=defaultProfile }
+             PrinterProfileId=defaultProfile.Id},
+            new() { Id = "2", JobName = "Print ALL drawings scale to fit",IsPrintDrawing=true, Description="Prints drawing scaled to fit the paper",
+             PrinterProfileId=defaultProfile.Id},
+            new() { Id = "3", JobName = "Print 3D Models A3", IsPrintModel=true,Description="Prints models as 3D visuals",
+             PrinterProfileId=defaultProfile.Id }
         };
 
         PrintList.CollectionChanged += (_, _) =>
@@ -56,19 +67,11 @@ public partial class ActionsPageViewModel() : PageViewModel(ApplicationPageName.
 
         if (PrintList.Any())
         {
-            PrintList.First().IsSelected = true;
+            SelectedPrintItemId = PrintList.First().Id;
 
             foreach (var item in PrintList)
                 item.SetSaveState();
         }
-
-        PrinterProfiles = new ObservableCollection<ActionPrinterProfileViewModel>
-        {
-             defaultProfile,
-            new (){ Copies=3, Name="Office Printer", Description=@"Office-Printer\HP LaserJet"},
-            new (){ Copies=2, Name="Plotter", Description=@"Plotters\EPSON Stylus Pro"},
-            new(){ Copies=1, Name="Home Printer", Description=@"Home-Printer\Canon Pixma" }
-        };
     }
 
 
@@ -101,7 +104,7 @@ public partial class ActionsPageViewModel() : PageViewModel(ApplicationPageName.
         if (index > 0)
             index--;
         if (index >= 0 && PrintList.Count > index)
-            PrintList[index].IsSelected = true;
+            SelectedPrintItemId = PrintList[index].Id;
         return true;
     }
 
@@ -111,11 +114,11 @@ public partial class ActionsPageViewModel() : PageViewModel(ApplicationPageName.
         var item = new ActionPrintViewModel()
         {
             Id = Guid.NewGuid().ToString(),
-            IsSelected = true,
             IsNewItem = true,
             JobName = "New Job Print Item",
-            PrinterProfile = defaultProfile
+            PrinterProfileId = defaultProfile.Id
         };
+        SelectedPrintItemId = item.Id;
         PrintList?.Add(item);
     }
 
@@ -130,7 +133,7 @@ public partial class ActionsPageViewModel() : PageViewModel(ApplicationPageName.
         }
         else
         {
-            //SelectedPrintItem.RevertChanges();
+            SelectedPrintItem.RestoreState();
         }
     }
 }

@@ -24,7 +24,8 @@
 					   Classes="sub2"/>
 			<Button Grid.Row="4" Command="{Binding AddPrintItemCommand}" Classes="small outline" Content="NewPrint Action" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
 			<ListBox Grid.Row="6" ItemsSource="{Binding PrintList}"
-					 SelectedItem="{Binding SelectedPrintItem}"
+					 SelectedValueBinding="{Binding Id}"
+					 SelectedValue="{Binding SelectedPrintItemId}"
 					 SelectionChanged="PrintList_SelectionChanged">
 				<ListBox.ItemTemplate>
 					<DataTemplate x:DataType="vm:ActionPrintViewModel">
@@ -32,7 +33,7 @@
 							<Label Content="{Binding JobName}" VerticalAlignment="Center"
 								   FontWeight="{Binding HasChanged, Converter={StaticResource BooleanToBoldFontConverter}}"/>
 							<Button Grid.Column="1" Classes="smaller danger"
-									IsVisible="{Binding IsSelected}"
+									IsVisible="{Binding $parent[ListBoxItem].IsSelected}"
 									Command="{Binding $parent[ListBox].((vm:ActionsPageViewModel)DataContext).DeletePrintItemCommand}"
 									CommandParameter="{Binding Id}"
 									Margin="0 -4 -4 -6" VerticalAlignment="Center">
@@ -41,11 +42,6 @@
 						</Grid>
 					</DataTemplate>
 				</ListBox.ItemTemplate>
-				<ListBox.Styles>
-					<Style Selector="ListBoxItem" x:DataType="vm:ActionPrintViewModel">
-						<Setter Property="IsSelected" Value="{Binding IsSelected}"/>
-					</Style>
-				</ListBox.Styles>
 			</ListBox>
 
 		</Grid>
@@ -91,7 +87,8 @@
 				<Label Grid.Row="6" Classes="h2" Content="Printer Settings"/>
 				<TextBlock Grid.Row="8" Text="Select the the profiles to the paper size." Margin="0 -10 0 10"/>
 				<ListBox Grid.Row="10" ItemsSource="{Binding PrinterProfiles}"
-						 SelectedItem="{Binding SelectedPrintItem.PrinterProfile}"
+						 SelectedValueBinding="{Binding Id}"
+						 SelectedValue="{Binding SelectedPrintItem.PrinterProfileId}"
 						 >
 					<ListBox.ItemTemplate>
 						<DataTemplate x:DataType="vm:ActionPrinterProfileViewModel">
@@ -117,7 +114,8 @@
 								  IsChecked="{Binding SelectedPrintItem.IsDrawingExclusionIsWhiteList}"
 								  Content="{Binding SelectedPrintItem.DrawingExclusionListTitle}"
 								  VerticalAlignment="Top"/>
-					<TextBox Grid.Column="2" Grid.Row="2" Text="{Binding SelectedPrintItem.DrawingExclusionList}" Height="80" TextWrapping="Wrap"/>
+					<TextBox Grid.Column="2" Grid.Row="2" Text="{Binding SelectedPrintItem.DrawingExclusionList}"
+							 Height="80" TextWrapping="Wrap" AcceptsReturn="True"/>
 				</Grid>
 				<StackPanel Spacing="10" Grid.Row="6" Orientation="Horizontal"
 							VerticalAlignment="Bottom" HorizontalAlignment="Right"

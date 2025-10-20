@@ -1,5 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System;
+using System.Linq;
+using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -17,10 +20,6 @@ public partial class ActionPrintViewModel : ViewModelBase
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HasChanged))]
     private string _jobName = "";
-
-    [ObservableProperty]
-    [property: JsonIgnore]
-    private bool _isSelected;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HasChanged))]
@@ -54,7 +53,7 @@ public partial class ActionPrintViewModel : ViewModelBase
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HasChanged))]
-    private ActionPrinterProfileViewModel _printerProfile = new();
+    private string _printerProfileId = "";
 
     [JsonIgnore]
     public bool HasChanged => IsNewItem || (_savedState != "" && _savedState != JsonSerializer.Serialize(this));
@@ -64,5 +63,19 @@ public partial class ActionPrintViewModel : ViewModelBase
         _savedState = JsonSerializer.Serialize(this);
 
         OnPropertyChanged(nameof(HasChanged));
+    }
+
+    [RelayCommand]
+    public void RestoreState()
+    {
+        var store = JsonSerializer.Deserialize<ActionPrintViewModel>(_savedState);
+
+        var properties = GetType().GetProperties()
+            .Where(x => x.CanWrite && x.GetCustomAttribute<JsonIgnoreAttribute>() == null);
+        foreach (var item in properties)
+        {
+            var value = item.GetValue(store);
+            item.SetValue(this, value);
+        }
     }
 }
