@@ -7,7 +7,7 @@ namespace AvaloniaSix.ViewModels;
 
 public partial class ActionPrintViewModel : ViewModelBase
 {
-    [JsonIgnore]
+    [property: JsonIgnore]
     private string _savedState = "";
 
     [ObservableProperty]
@@ -19,6 +19,7 @@ public partial class ActionPrintViewModel : ViewModelBase
     private string _jobName = "";
 
     [ObservableProperty]
+    [property: JsonIgnore]
     private bool _isSelected;
 
     [ObservableProperty]
@@ -56,7 +57,7 @@ public partial class ActionPrintViewModel : ViewModelBase
     private ActionPrinterProfileViewModel _printerProfile = new();
 
     [JsonIgnore]
-    public bool HasChanged => _savedState != JsonSerializer.Serialize(this);
+    public bool HasChanged => IsNewItem || (_savedState != "" && _savedState != JsonSerializer.Serialize(this));
 
     public void SetSaveState()
     {

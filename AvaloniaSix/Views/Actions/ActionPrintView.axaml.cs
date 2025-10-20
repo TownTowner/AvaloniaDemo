@@ -24,7 +24,6 @@ public partial class ActionPrintView : UserControl
                 JobNameTxt.SelectAll();
                 JobNameTxt.Focus();
             }
-            vm.SetSaveState();
         }
     }
 }

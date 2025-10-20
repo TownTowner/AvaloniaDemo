@@ -13,7 +13,10 @@ public partial class ActionsPageViewModel() : PageViewModel(ApplicationPageName.
     private ActionPrinterProfileViewModel defaultProfile = new() { Copies = 1, Name = "(Default)PDF Printer", Description = @"Virtual Printers\Microsoft PDF" };
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(PrintListHasItems))]
     private ObservableCollection<ActionPrintViewModel> _printList = [];
+
+    public bool PrintListHasItems => PrintList?.Any() ?? false;
 
     [ObservableProperty]
     private ActionPrintViewModel _selectedPrintItem;
@@ -46,6 +49,19 @@ public partial class ActionsPageViewModel() : PageViewModel(ApplicationPageName.
              PrinterProfile=defaultProfile }
         };
 
+        PrintList.CollectionChanged += (_, _) =>
+        {
+            OnPropertyChanged(nameof(PrintListHasItems));
+        };
+
+        if (PrintList.Any())
+        {
+            PrintList.First().IsSelected = true;
+
+            foreach (var item in PrintList)
+                item.SetSaveState();
+        }
+
         PrinterProfiles = new ObservableCollection<ActionPrinterProfileViewModel>
         {
              defaultProfile,
@@ -55,6 +71,7 @@ public partial class ActionsPageViewModel() : PageViewModel(ApplicationPageName.
         };
     }
 
+
     protected override void OnDesignConstructor()
     {
         FetchPrintActionsData();
@@ -63,7 +80,29 @@ public partial class ActionsPageViewModel() : PageViewModel(ApplicationPageName.
     [RelayCommand]
     public void DeletePrintItem(string id)
     {
-        PrintList?.Remove(PrintList.FirstOrDefault(x => x.Id == id));
+        bool flowControl = DeletePrintItemFromUI(id);
+        if (!flowControl)
+        {
+            return;
+        }
+    }
+
+    private bool DeletePrintItemFromUI(string id)
+    {
+        if (PrintList is null || PrintList.Count == 0)
+            return false;
+
+        var index = PrintList.ToList().FindIndex(x => x.Id == id);
+        if (index == -1)
+            return false;
+
+        PrintList.RemoveAt(index);
+
+        if (index > 0)
+            index--;
+        if (index >= 0 && PrintList.Count > index)
+            PrintList[index].IsSelected = true;
+        return true;
     }
 
     [RelayCommand]
@@ -71,6 +110,7 @@ public partial class ActionsPageViewModel() : PageViewModel(ApplicationPageName.
     {
         var item = new ActionPrintViewModel()
         {
+            Id = Guid.NewGuid().ToString(),
             IsSelected = true,
             IsNewItem = true,
             JobName = "New Job Print Item",
@@ -79,4 +119,18 @@ public partial class ActionsPageViewModel() : PageViewModel(ApplicationPageName.
         PrintList?.Add(item);
     }
 
+    [RelayCommand]
+    public void CancelPrintItem()
+    {
+        if (SelectedPrintItem is null) return;
+
+        if (SelectedPrintItem.IsNewItem)
+        {
+            DeletePrintItemFromUI(SelectedPrintItem.Id);
+        }
+        else
+        {
+            //SelectedPrintItem.RevertChanges();
+        }
+    }
 }
