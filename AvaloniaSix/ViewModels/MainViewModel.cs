@@ -54,23 +54,23 @@ public partial class MainViewModel : ViewModelBase
     private void SideMenuToggle() => SideMenuExpanded = !SideMenuExpanded;
 
     [RelayCommand]
-    private void GoToActions() => CurrentPage = _pageFactory.CreatePage(ApplicationPageName.Actions);
+    private void GoToActions() => CurrentPage = _pageFactory.CreatePage<ActionsPageViewModel>();
 
     [RelayCommand]
-    private void GoToHistory() => CurrentPage = _pageFactory.CreatePage(ApplicationPageName.History);
+    private void GoToHistory() => CurrentPage = _pageFactory.CreatePage<HistoryPageViewModel>();
 
     [RelayCommand]
-    private void GoToHome() => CurrentPage = _pageFactory.CreatePage(ApplicationPageName.Home);
+    private void GoToHome() => CurrentPage = _pageFactory.CreatePage<HomePageViewModel>();
 
     [RelayCommand]
-    private void GoToMacros() => CurrentPage = _pageFactory.CreatePage(ApplicationPageName.Macros);
+    private void GoToMacros() => CurrentPage = _pageFactory.CreatePage<MacrosPageViewModel>();
 
     [RelayCommand]
-    private void GoToProcess() => CurrentPage = _pageFactory.CreatePage(ApplicationPageName.Process);
+    private void GoToProcess() => CurrentPage = _pageFactory.CreatePage<ProcessPageViewModel>();
 
     [RelayCommand]
-    private void GoToReporter() => CurrentPage = _pageFactory.CreatePage(ApplicationPageName.Reporter);
+    private void GoToReporter() => CurrentPage = _pageFactory.CreatePage<ReporterPageViewModel>();
 
     [RelayCommand]
-    private void GoToSettings() => CurrentPage = _pageFactory.CreatePage(ApplicationPageName.Settings);
+    private void GoToSettings() => CurrentPage = _pageFactory.CreatePage<SettingsPageViewModel>();
 }

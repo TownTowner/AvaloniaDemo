@@ -32,16 +32,16 @@ public partial class App : Application
         collections.AddTransient<ReporterPageViewModel>();
         collections.AddTransient<SettingsPageViewModel>();
 
-        collections.AddSingleton<Func<ApplicationPageName, PageViewModel>>(x => name => name switch
+        collections.AddSingleton<Func<Type, PageViewModel>>(x => type => type switch
         {
-            ApplicationPageName.Actions => x.GetRequiredService<ActionsPageViewModel>(),
-            ApplicationPageName.History => x.GetRequiredService<HistoryPageViewModel>(),
-            ApplicationPageName.Home => x.GetRequiredService<HomePageViewModel>(),
-            ApplicationPageName.Macros => x.GetRequiredService<MacrosPageViewModel>(),
-            ApplicationPageName.Process => x.GetRequiredService<ProcessPageViewModel>(),
-            ApplicationPageName.Reporter => x.GetRequiredService<ReporterPageViewModel>(),
-            ApplicationPageName.Settings => x.GetRequiredService<SettingsPageViewModel>(),
-            _ => throw new InvalidOperationException()
+            _ when type == typeof(HomePageViewModel) => x.GetRequiredService<HomePageViewModel>(),
+            _ when type == typeof(ProcessPageViewModel) => x.GetRequiredService<ProcessPageViewModel>(),
+            _ when type == typeof(MacrosPageViewModel) => x.GetRequiredService<MacrosPageViewModel>(),
+            _ when type == typeof(ActionsPageViewModel) => x.GetRequiredService<ActionsPageViewModel>(),
+            _ when type == typeof(ReporterPageViewModel) => x.GetRequiredService<ReporterPageViewModel>(),
+            _ when type == typeof(HistoryPageViewModel) => x.GetRequiredService<HistoryPageViewModel>(),
+            _ when type == typeof(SettingsPageViewModel) => x.GetRequiredService<SettingsPageViewModel>(),
+            _ => throw new InvalidOperationException($"Page of type {type?.FullName} has no view model"),
         });
         collections.AddSingleton<PageFactory>();
 

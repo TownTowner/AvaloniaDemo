@@ -4,7 +4,15 @@ using System;
 
 namespace AvaloniaSix.Factories;
 
-public class PageFactory(Func<ApplicationPageName, PageViewModel> pageFactory)
+public class PageFactory(Func<Type, PageViewModel> factory)
 {
-    public PageViewModel CreatePage(ApplicationPageName pageName) => pageFactory(pageName);
+    public PageViewModel CreatePage<T>(Action<T>? afterCreation = null)
+        where T : PageViewModel
+    {
+        var viewModel = factory(typeof(T));
+
+        afterCreation?.Invoke((T)viewModel);
+
+        return viewModel;
+    }
 }
