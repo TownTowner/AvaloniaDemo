@@ -51,7 +51,7 @@
 					Opacity="{Binding !PrintListHasItems}">
 			<TextBlock Text="Please add a new print action to configure its settings." HorizontalAlignment="Center" MaxWidth="300"/>
 			<TextBlock Text="No Print Actions Available" Classes="h2" HorizontalAlignment="Center"/>
-			<Button Margin="20" HorizontalAlignment="Center" Content="Add New Action" Command="{Binding AddPrintItemCommand}"/>
+			<Button Margin="20" HorizontalAlignment="Center" Content="New Print Action" Command="{Binding AddPrintItemCommand}"/>
 
 			<StackPanel.Styles>
 				<Style Selector="StackPanel">
@@ -67,7 +67,7 @@
 		<!--Print Settings Panel-->
 		<Grid Grid.Column="2" ColumnDefinitions="*,30,*" Opacity="{Binding PrintListHasItems}">
 			<!--General Setting Column-->
-			<Grid Grid.Column="0" RowDefinitions="Auto,10,Auto,10,Auto,10,Auto,10,Auto,10,*">
+			<Grid Grid.Column="0" RowDefinitions="Auto,10,Auto,10,Auto,10,Auto,10,Auto,10,Auto,10,*">
 				<Label Classes="h2" Content="General Settings"/>
 				<TextBlock Grid.Row="2" Text="Set the main properties of the print job." Margin="0 -10 0 10"/>
 
@@ -86,17 +86,38 @@
 				<!--Printer List-->
 				<Label Grid.Row="6" Classes="h2" Content="Printer Settings"/>
 				<TextBlock Grid.Row="8" Text="Select the the profiles to the paper size." Margin="0 -10 0 10"/>
-				<ListBox Grid.Row="10" ItemsSource="{Binding PrinterProfiles}"
+				<Button Grid.Row="10" Classes="small outline" Content="New Printer Settings"
+						HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+						Command="{Binding AddPrinterSettingsCommand}" />
+
+				<ListBox Grid.Row="12" ItemsSource="{Binding PrinterProfiles}"
 						 SelectedValueBinding="{Binding Id}"
 						 SelectedValue="{Binding SelectedPrintItem.PrinterProfileId}"
 						 >
 					<ListBox.ItemTemplate>
 						<DataTemplate x:DataType="vm:ActionPrinterProfileViewModel">
-							<StackPanel>
-								<Label Classes="h3" Content="{Binding Name}" VerticalAlignment="Center" Margin="-4 0 0 0"/>
-								<TextBlock Text="{Binding Description}" TextWrapping="Wrap" FontSize="12" Opacity="0.7"/>
-							</StackPanel>
+							<Grid ColumnDefinitions="*,10,Auto,10,Auto">
+								<StackPanel Grid.Column="0">
+									<Label Classes="h3" Content="{Binding Name}" VerticalAlignment="Center" Margin="-4 0 0 0"/>
+									<TextBlock Text="{Binding Description}" TextWrapping="Wrap" FontSize="12" Opacity="0.7"/>
+								</StackPanel>
+								<Button Grid.Column="2" Classes="smaller alert"
+										IsVisible="{Binding $parent[ListBoxItem].IsSelected}"
+										Command="{Binding $parent[ListBox].((vm:ActionsPageViewModel)DataContext).EditPrinterSettingsCommand}"
+										CommandParameter="{Binding Id}"
+										Margin="0 -4 -4 -6" VerticalAlignment="Center">
+									<Label Content="&#xe3b2;" Classes="icon-only icon-outline"/>
+								</Button>
+								<Button Grid.Column="4" Classes="smaller danger"
+										IsVisible="{Binding $parent[ListBoxItem].IsSelected}"
+										Command="{Binding $parent[ListBox].((vm:ActionsPageViewModel)DataContext).DeletePrinterSettingsCommand}"
+										CommandParameter="{Binding Id}"
+										Margin="0 -4 -4 -6" VerticalAlignment="Center">
+									<Label Content="&#xe4a6;" Classes="icon-only icon-outline"/>
+								</Button>
+							</Grid>
 						</DataTemplate>
+
 					</ListBox.ItemTemplate>
 				</ListBox>
 

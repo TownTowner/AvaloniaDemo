@@ -4,18 +4,16 @@
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:view="clr-namespace:AvaloniaSix.Views"
 			 xmlns:vm="clr-namespace:AvaloniaSix.ViewModels"
-			 Width="1400"
-			 Height="800"
 			 MinWidth="1400"
 			 MinHeight="800"
-			 d:DesignHeight="800"
 			 d:DesignWidth="1400"
+			 d:DesignHeight="800"
 			 x:DataType="vm:MainViewModel"
 			 x:Class="AvaloniaSix.Views.MainView">
-	
-  <Design.DataContext>
-    <vm:MainViewModel />
-  </Design.DataContext>
+
+	<Design.DataContext>
+		<vm:MainViewModel />
+	</Design.DataContext>
 
 	<Grid Background="{DynamicResource PrimaryBackground}" ColumnDefinitions="Auto,*">
 
@@ -77,23 +75,32 @@
 					</IconButton>
 				</StackPanel>
 
-				<!-- <IconButton HorizontalAlignment="Stretch"
-				Classes="transparent" Grid.Row="1"
-				Command="{Binding GoToSettingsCommand}"
-				IconText="&#xe272;">
-				</IconButton> -->
-
-				<Button Grid.Row="1" Classes="transparent"
+				<Button Grid.Row="1" Classes="transparent subtle"
 						Classes.active="{Binding IsSettingsPage}"
 						Command="{Binding GoToSettingsCommand}">
-					<StackPanel Orientation="Horizontal">
-						<Label Classes="icon-only" Content="&#xe272;" />
-					</StackPanel>
+					<Label Classes="icon-only" Content="&#xe272;" />
 				</Button>
 			</Grid>
 		</Border>
 
 		<ContentControl Grid.Column="1" Content="{Binding CurrentPage}" />
+
+		<Grid Name="DialogOverlay" Grid.Column="0" Grid.ColumnSpan="2"
+			  IsVisible="{Binding #DialogOverlay.Opacity}"
+			  Opacity="{Binding Dialog.IsDialogOpen, FallbackValue=0}">
+			<Grid.Styles>
+				<Style Selector="Grid">
+					<Setter Property="Transitions">
+						<Transitions>
+							<DoubleTransition Property="Opacity" Duration="0:0:0.1"/>
+						</Transitions>
+					</Setter>
+				</Style>
+			</Grid.Styles>
+
+			<Border Background="black" Opacity="0.5"/>
+			<ContentControl Content="{Binding Dialog}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+		</Grid>
 	</Grid>
 
 </UserControl>

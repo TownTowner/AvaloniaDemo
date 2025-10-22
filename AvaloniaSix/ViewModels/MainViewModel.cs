@@ -1,12 +1,13 @@
 ﻿using Avalonia.Controls;
 using AvaloniaSix.Data;
 using AvaloniaSix.Factories;
+using AvaloniaSix.Interfaces;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace AvaloniaSix.ViewModels;
 
-public partial class MainViewModel : ViewModelBase
+public partial class MainViewModel : ViewModelBase, IDialogProvider
 {
     private PageFactory _pageFactory;
 
@@ -24,6 +25,9 @@ public partial class MainViewModel : ViewModelBase
     [NotifyPropertyChangedFor(nameof(IsSettingsPage))]
     private PageViewModel _currentPage;
 
+    [ObservableProperty]
+    private DialogViewModel _dialog;
+
     public bool IsActionsPage => CurrentPage.PageName == ApplicationPageName.Actions;
     public bool IsHistoryPage => CurrentPage.PageName == ApplicationPageName.History;
     public bool IsHomePage => CurrentPage.PageName == ApplicationPageName.Home;
@@ -39,7 +43,7 @@ public partial class MainViewModel : ViewModelBase
     {
         // Parameterless constructor for design-time tools
         if (Design.IsDesignMode)
-            CurrentPage = new ActionsPageViewModel();// Default page for design-time
+            CurrentPage = new ActionsPageViewModel(new(), new());// Default page for design-time
     }
 
     public MainViewModel(PageFactory pageFactory)

@@ -1,0 +1,62 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d" MinWidth="300" MinHeight="150"
+			 xmlns:vm="using:AvaloniaSix.ViewModels"
+			 x:DataType="vm:ConfirmDialogViewModel"
+			 Width="{Binding DialogWidth}"
+			 Height="{Binding DialogHeight}"
+			 Foreground="{DynamicResource PrimaryForeground}"
+			 Background="{DynamicResource PrimaryBackground}"
+			 x:Class="AvaloniaSix.Views.ConfirmDialogView">
+
+	<Design.DataContext>
+		<vm:ConfirmDialogViewModel/>
+	</Design.DataContext>
+
+	<Border CornerRadius="20" ClipToBounds="True" Margin="10"
+			Background="{DynamicResource PrimaryBackground}"
+			BorderBrush="{DynamicResource DefaultGradient}"
+			BorderThickness="{DynamicResource PrimaryBorderThickness}">
+		<Border.Effect>
+			<DropShadowEffect Color="{DynamicResource PrimaryBackgroundColor2}"/>
+		</Border.Effect>
+
+		<Grid RowDefinitions="Auto,*">
+			<!--Title-->
+			<Border Grid.Row="0" Background="{DynamicResource PrimaryBackgroundGradient}" CornerRadius="20 0">
+				<TextBlock Text="{Binding Title}" Padding="10" FontWeight="Bold" FontSize="18" TextWrapping="Wrap"/>
+			</Border>
+
+			<Grid Grid.Row="1" RowDefinitions="Auto,Auto,*,Auto" Margin="20">
+				<!--Message:-->
+				<StackPanel Grid.Row="0" Orientation="Horizontal">
+					<Label Classes="icon" Content="{Binding IconText}" />
+					<TextBlock Text="{Binding Message}" TextWrapping="Wrap"/>
+				</StackPanel>
+
+				<!--Tips-->
+				<TextBlock Grid.Row="1" Text="{Binding StatusText}" Foreground="{DynamicResource AlertGradient}"
+						   HorizontalAlignment="Right" TextWrapping="Wrap" Margin="0 10"/>
+
+				<!--Buttons-->
+				<StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10"
+							IsVisible="{Binding !IsBusy}" VerticalAlignment="Bottom">
+					<Button Classes="success outline" Content="{Binding CancelText}"
+							Command="{Binding CancelCommand}" MinWidth="70" HorizontalContentAlignment="Center"/>
+					<Button Classes="danger outline" Content="{Binding ConfirmText}"
+							Command="{Binding ConfirmCommand}" MinWidth="70" HorizontalContentAlignment="Center"/>
+				</StackPanel>
+
+				<!--Progress Text-->
+				<TextBlock Grid.Row="3" Text="{Binding ProgressText}" Foreground="{DynamicResource AlertGradient}"
+						   IsVisible="{Binding IsBusy}" Margin="0 10"
+						   HorizontalAlignment="Right" TextAlignment="Right" TextWrapping="Wrap"/>
+
+			</Grid>
+
+		</Grid>
+	</Border>
+
+</UserControl>

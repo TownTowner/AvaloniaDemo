@@ -1,14 +1,17 @@
 ﻿using AvaloniaSix.Data;
+using AvaloniaSix.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace AvaloniaSix.ViewModels;
 
-public partial class ActionsPageViewModel() : PageViewModel(ApplicationPageName.Actions)
+public partial class ActionsPageViewModel : PageViewModel
 {
     private ActionPrinterProfileViewModel defaultProfile = new() { Id = "0", Copies = 1, Name = "(Default)PDF Printer", Description = @"Virtual Printers\Microsoft PDF" };
 
@@ -20,12 +23,21 @@ public partial class ActionsPageViewModel() : PageViewModel(ApplicationPageName.
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(SelectedPrintItem))]
-    private string _selectedPrintItemId;
+    private string? _selectedPrintItemId;
 
-    public ActionPrintViewModel SelectedPrintItem => PrintList?.FirstOrDefault(x => x.Id == SelectedPrintItemId);
+    public ActionPrintViewModel? SelectedPrintItem => PrintList?.FirstOrDefault(x => x.Id == SelectedPrintItemId);
 
     [ObservableProperty]
     private ObservableCollection<ActionPrinterProfileViewModel> _printerProfiles = [];
+
+    private readonly MainViewModel _mainVM;
+    private readonly DialogService _dialogService;
+    public ActionsPageViewModel(MainViewModel mainVM, DialogService dialogService)
+        : base(ApplicationPageName.Actions)
+    {
+        _mainVM = mainVM;
+        _dialogService = dialogService;
+    }
 
     [RelayCommand]
     public void RefreshPrintList(ActionsTabName name)
@@ -38,8 +50,7 @@ public partial class ActionsPageViewModel() : PageViewModel(ApplicationPageName.
         }
     }
 
-    [RelayCommand]
-    public void FetchPrintActionsData()
+    private void FetchPrintProfiles()
     {
         PrinterProfiles = new ObservableCollection<ActionPrinterProfileViewModel>
         {
@@ -48,6 +59,12 @@ public partial class ActionsPageViewModel() : PageViewModel(ApplicationPageName.
             new (){Id="2", Copies=2, Name="Plotter", Description=@"Plotters\EPSON Stylus Pro"},
             new(){Id="3", Copies=1, Name="Home Printer", Description=@"Home-Printer\Canon Pixma" }
         };
+    }
+
+    [RelayCommand]
+    public void FetchPrintActionsData()
+    {
+        FetchPrintProfiles();
 
         PrintList = new ObservableCollection<ActionPrintViewModel>
         {
@@ -74,23 +91,22 @@ public partial class ActionsPageViewModel() : PageViewModel(ApplicationPageName.
         }
     }
 
-
     protected override void OnDesignConstructor()
     {
         FetchPrintActionsData();
     }
 
     [RelayCommand]
-    public void DeletePrintItem(string id)
+    public async Task DeletePrintItem(string id)
     {
-        bool flowControl = DeletePrintItemFromUI(id);
+        bool flowControl = await DeletePrintItemFromUiAsync(id, true);
         if (!flowControl)
         {
             return;
         }
     }
 
-    private bool DeletePrintItemFromUI(string id)
+    private async Task<bool> DeletePrintItemFromUiAsync(string id, bool warn = false)
     {
         if (PrintList is null || PrintList.Count == 0)
             return false;
@@ -98,6 +114,28 @@ public partial class ActionsPageViewModel() : PageViewModel(ApplicationPageName.
         var index = PrintList.ToList().FindIndex(x => x.Id == id);
         if (index == -1)
             return false;
+
+        if (warn)
+        {
+            var dialog = new ConfirmDialogViewModel
+            {
+                Title = $"Delete {PrintList[index].JobName}?",
+                Message = "Are you sure you want to delete this print item?",
+                //OnConfirmedAsync = async (vm) =>
+                //{
+                //    await Task.Delay(1000);
+                //    vm.ProgressText = "This will take a while...";
+                //    await Task.Delay(2000);
+                //    vm.StatusText = "Unable to delete the item at this time.";
+
+                //    return true;
+                //}
+            };
+            await _dialogService.ShowDialogAsync(_mainVM, dialog);
+
+            if (dialog.IsConfirmed == false)
+                return false;
+        }
 
         PrintList.RemoveAt(index);
 
@@ -123,17 +161,102 @@ public partial class ActionsPageViewModel() : PageViewModel(ApplicationPageName.
     }
 
     [RelayCommand]
-    public void CancelPrintItem()
+    public async Task<bool> AddPrinterSettings()
+    {
+        var dialog = new ActionPrinterProfileViewModel
+        {
+            Title = "Add Printer Profile",
+            Message = "Configure the printer profile settings below.",
+            //    await Task.Delay(1000);
+            //    vm.ProgressText = "This will take a while...";
+            //    await Task.Delay(2000);
+            //    vm.StatusText = "Unable to delete the item at this time.";
+
+            //    return true;
+            //}
+        };
+        await _dialogService.ShowDialogAsync(_mainVM, dialog);
+
+        if (dialog.IsConfirmed == false)
+            return false;
+        return true;
+    }
+
+    [RelayCommand]
+    public async Task CancelPrintItemAsync()
     {
         if (SelectedPrintItem is null) return;
 
         if (SelectedPrintItem.IsNewItem)
         {
-            DeletePrintItemFromUI(SelectedPrintItem.Id);
+            await DeletePrintItemFromUiAsync(SelectedPrintItem.Id);
         }
         else
         {
             SelectedPrintItem.RestoreState();
         }
+    }
+
+    [RelayCommand]
+    public async Task EditPrinterSettings(string id)
+    {
+        var profile = PrinterProfiles?.FirstOrDefault(x => x.Id == id);
+        if (profile == null)
+            return;
+
+        // temporary copy to edit
+        var copy = new ActionPrinterProfileViewModel();
+        copy.RestoreState(profile.GetSaveState());
+
+        await _dialogService.ShowDialogAsync(_mainVM, copy);
+
+        if (profile.IsConfirmed == false)
+            return;
+
+        // apply changes when confirmed
+        profile.RestoreState(copy.GetSaveState());
+    }
+
+    [RelayCommand]
+    public async Task DeletePrinterSettings(string id)
+    {
+        bool flowControl = await DeletePrinterProfileFromUiAsync(id, true);
+        if (!flowControl)
+        {
+            return;
+        }
+    }
+
+    private async Task<bool> DeletePrinterProfileFromUiAsync(string id, bool warn = false)
+    {
+        if (PrinterProfiles is null || PrinterProfiles.Count == 0)
+            return false;
+
+        var index = PrinterProfiles.ToList().FindIndex(x => x.Id == id);
+        if (index == -1)
+            return false;
+
+        if (warn)
+        {
+            var dialog = new ConfirmDialogViewModel
+            {
+                DialogWidth = 500,
+                Title = "Delete print profile!",
+                Message = $"Are you sure you want to delete '{PrinterProfiles[index].Name}' ?",
+            };
+            await _dialogService.ShowDialogAsync(_mainVM, dialog);
+
+            if (dialog.IsConfirmed == false)
+                return false;
+        }
+
+        PrinterProfiles.RemoveAt(index);
+
+        if (index > 0)
+            index--;
+        if (index >= 0 && PrinterProfiles.Count > index && SelectedPrintItem != null)
+            SelectedPrintItem.PrinterProfileId = PrinterProfiles[index].Id;
+
+        return true;
     }
 }

@@ -4,6 +4,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Metadata;
 using AvaloniaSix.Data;
 using AvaloniaSix.Factories;
+using AvaloniaSix.Services;
 using AvaloniaSix.ViewModels;
 using AvaloniaSix.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,6 +45,7 @@ public partial class App : Application
             _ => throw new InvalidOperationException($"Page of type {type?.FullName} has no view model"),
         });
         collections.AddSingleton<PageFactory>();
+        collections.AddSingleton<DialogService>();
 
         var services = collections.BuildServiceProvider();
 

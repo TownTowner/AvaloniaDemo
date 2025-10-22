@@ -3,19 +3,27 @@ using System.Collections.ObjectModel;
 
 namespace AvaloniaSix.ViewModels;
 
-public partial class ActionPrinterProfileViewModel : ViewModelBase
+public partial class ActionPrinterProfileViewModel : ConfirmDialogViewModel
 {
     [ObservableProperty]
-    private string _id;
- 
-    [ObservableProperty]
-    private string _name;
+    private string _id = string.Empty;
 
     [ObservableProperty]
-    private string _description;
+    private string _name = string.Empty;
 
     [ObservableProperty]
-    private int _copies;
+    private string _description = string.Empty;
 
-    private ObservableCollection<ActionPrinterSettingsViewModel> _printerSettings;
+    [ObservableProperty]
+    private int _copies = 0;
+
+    private ObservableCollection<ActionPrinterSettingsViewModel> _printerSettings = [];
+
+    public ActionPrinterProfileViewModel()
+    {
+        Title = "Printer Profile";
+        Message = "Configure the printer profile settings below.";
+        ConfirmText = "Save";
+        CancelText = "Cancel";
+    }
 }

@@ -26,6 +26,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\Actions\ActionPrinterSettingsView.axaml.cs">
+      <DependentUpon>ActionPrinterSettingsView.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\MainWindow.axaml.cs">
       <DependentUpon>Views\MainWindow.axaml</DependentUpon>
     </Compile>
