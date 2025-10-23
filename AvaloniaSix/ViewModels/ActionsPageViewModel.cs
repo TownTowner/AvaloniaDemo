@@ -1,10 +1,12 @@
-﻿using AvaloniaSix.Data;
+﻿using Avalonia.Input;
+using AvaloniaSix.Data;
 using AvaloniaSix.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -32,11 +34,16 @@ public partial class ActionsPageViewModel : PageViewModel
 
     private readonly MainViewModel _mainVM;
     private readonly DialogService _dialogService;
-    public ActionsPageViewModel(MainViewModel mainVM, DialogService dialogService)
+    private readonly PrinterService printerService;
+
+    public ActionsPageViewModel(MainViewModel mainVM,
+        DialogService dialogService,
+        PrinterService printerService)
         : base(ApplicationPageName.Actions)
     {
         _mainVM = mainVM;
         _dialogService = dialogService;
+        this.printerService = printerService;
     }
 
     [RelayCommand]
@@ -52,6 +59,9 @@ public partial class ActionsPageViewModel : PageViewModel
 
     private void FetchPrintProfiles()
     {
+        var printers = printerService.AvailablePrinters();
+        var printerOptions = new ObservableCollection<string>(printers.Select(x => x.Name));
+
         var profileSetting = new ActionPrinterSettingsViewModel()
         {
             Id = "0",
@@ -59,9 +69,13 @@ public partial class ActionsPageViewModel : PageViewModel
             Height = 297,
             Orientation = "Portrait",
             PaperSize = "A4",
+            PrinterNameOptions = printerOptions
         };
+        profileSetting.PropertyChanged += (s, a) => PrinterNamePropertyChanged(s, a, printers, profileSetting);
+
         var profileSettingList = new ObservableCollection<ActionPrinterSettingsViewModel> { profileSetting, profileSetting, profileSetting };
 
+        defaultProfile.PrinterSettings = profileSettingList;
         PrinterProfiles = new ObservableCollection<ActionPrinterProfileViewModel>
         {
             defaultProfile,
@@ -69,6 +83,30 @@ public partial class ActionsPageViewModel : PageViewModel
             new (){Id="2", Copies=2, Name="Plotter", Description=@"Plotters\EPSON Stylus Pro", PrinterSettings=profileSettingList},
             new(){Id="3", Copies=1, Name="Home Printer", Description=@"Home-Printer\Canon Pixma",PrinterSettings=profileSettingList }
         };
+    }
+
+    private void PrinterNamePropertyChanged(object? sender, PropertyChangedEventArgs args,
+        ObservableCollection<PrinterDetailsViewModel> printers,
+        ActionPrinterSettingsViewModel profileSetting)
+    {
+        if (args.PropertyName != nameof(ActionPrinterSettingsViewModel.PrinterName))
+            return;
+
+        var setting = sender as ActionPrinterSettingsViewModel ?? profileSetting;
+        var printer = printers.FirstOrDefault(x => x.Name == setting.PrinterName);
+        if (printer == null)
+            return;
+
+        setting.PaperSizeOptions = printer.PaperSizes;
+        if (!setting.PaperSizeOptions.Contains(setting.PaperSize))
+        {
+            setting.PaperSize = setting.PaperSizeOptions.FirstOrDefault() ?? string.Empty;
+        }
+        setting.SourceTrayOptions = printer.SourceTrays;
+        if (!setting.SourceTrayOptions.Contains(setting.SourceTray))
+        {
+            setting.SourceTray = setting.SourceTrayOptions.FirstOrDefault() ?? string.Empty;
+        }
     }
 
     [RelayCommand]
@@ -214,9 +252,15 @@ public partial class ActionsPageViewModel : PageViewModel
         if (profile == null)
             return;
 
+        var printers = printerService.AvailablePrinters();
         // temporary copy to edit
         var copy = new ActionPrinterProfileViewModel();
         copy.RestoreState(profile.GetSaveState());
+        foreach (var setting in copy.PrinterSettings)
+        {
+            setting.PropertyChanged +=
+                (s, e) => PrinterNamePropertyChanged(s, e, printers, setting);
+        }
 
         await _dialogService.ShowDialogAsync(_mainVM, copy);
 
