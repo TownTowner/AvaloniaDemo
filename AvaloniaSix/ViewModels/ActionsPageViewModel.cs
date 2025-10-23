@@ -52,12 +52,22 @@ public partial class ActionsPageViewModel : PageViewModel
 
     private void FetchPrintProfiles()
     {
+        var profileSetting = new ActionPrinterSettingsViewModel()
+        {
+            Id = "0",
+            Width = 210,
+            Height = 297,
+            Orientation = "Portrait",
+            PaperSize = "A4",
+        };
+        var profileSettingList = new ObservableCollection<ActionPrinterSettingsViewModel> { profileSetting, profileSetting, profileSetting };
+
         PrinterProfiles = new ObservableCollection<ActionPrinterProfileViewModel>
         {
-             defaultProfile,
-            new (){Id="1", Copies=3, Name="Office Printer", Description=@"Office-Printer\HP LaserJet"},
-            new (){Id="2", Copies=2, Name="Plotter", Description=@"Plotters\EPSON Stylus Pro"},
-            new(){Id="3", Copies=1, Name="Home Printer", Description=@"Home-Printer\Canon Pixma" }
+            defaultProfile,
+            new (){Id="1", Copies=3, Name="Office Printer", Description=@"Office-Printer\HP LaserJet",PrinterSettings=profileSettingList},
+            new (){Id="2", Copies=2, Name="Plotter", Description=@"Plotters\EPSON Stylus Pro", PrinterSettings=profileSettingList},
+            new(){Id="3", Copies=1, Name="Home Printer", Description=@"Home-Printer\Canon Pixma",PrinterSettings=profileSettingList }
         };
     }
 

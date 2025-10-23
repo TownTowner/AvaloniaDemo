@@ -3,13 +3,14 @@
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 mc:Ignorable="d"
+			 d:DesignWidth="1200" d:DesignHeight="600"
 			 MinWidth="450" MinHeight="150"
-			 xmlns:vm="using:AvaloniaSix.ViewModels"
-			 x:DataType="vm:ActionPrinterProfileViewModel"
 			 Width="{Binding DialogWidth}"
 			 Height="{Binding DialogHeight}"
 			 Foreground="{DynamicResource PrimaryForeground}"
 			 Background="{DynamicResource PrimaryBackground}"
+			 xmlns:vm="using:AvaloniaSix.ViewModels"
+			 x:DataType="vm:ActionPrinterProfileViewModel"
 			 x:Class="AvaloniaSix.Views.ActionPrinterProfileView">
 
 	<Design.DataContext>
@@ -30,14 +31,14 @@
 				<TextBlock Text="{Binding Title}" Padding="10" FontWeight="Bold" FontSize="18" TextWrapping="Wrap"/>
 			</Border>
 
-			<Grid Grid.Row="1" RowDefinitions="Auto,Auto,Auto,*,Auto" Margin="20">
+			<Grid Grid.Row="1" RowDefinitions="Auto,10,Auto,10,*,10,Auto,Auto,Auto,10,Auto" Margin="20">
 				<!--Message:-->
 				<StackPanel Grid.Row="0" Orientation="Horizontal">
 					<Label Classes="icon" Content="{Binding IconText}" />
 					<TextBlock Text="{Binding Message}" TextWrapping="Wrap"/>
 				</StackPanel>
 
-				<Grid Grid.Row="1" ColumnDefinitions="Auto,10,*" RowDefinitions="Auto,10,Auto" Margin="0 10">
+				<Grid Grid.Row="2" ColumnDefinitions="Auto,10,*" RowDefinitions="Auto,10,Auto" Margin="0 10">
 					<Label Grid.Column="0" Grid.Row="0" Content="Name" VerticalAlignment="Center"/>
 					<TextBox Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Width="300"
 							 Text="{Binding Name}"/>
@@ -46,12 +47,86 @@
 							 Text="{Binding Description}"/>
 				</Grid>
 
+				<!--Printer Settings:-->
+				<DataGrid Grid.Row="4" ItemsSource="{Binding PrinterSettings}"
+						  Background="{DynamicResource PrimaryBackgroundColor2}">
+					<DataGrid.Styles>
+						<Style Selector="DataGrid DataGridColumnHeader">
+							<Setter Property="Background" Value="{DynamicResource PrimaryBackgroundColor1}"/>
+							<Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"/>
+						</Style>
+						<Style Selector="DataGrid DataGridRow:selected /template/ Rectangle#BackgroundRectangle">
+							<Setter Property="Fill" Value="{DynamicResource ActiveHoverGradient}"></Setter>
+						</Style>
+					</DataGrid.Styles>
+
+					<DataGrid.Columns>
+						<DataGridTextColumn Width="140" Header="Type" Binding="{Binding Type}" IsReadOnly="True"/>
+						<DataGridTemplateColumn Header="Printer Name" SortMemberPath="PrinterName">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<ComboBox Width="150" Margin="0" SelectedItem="{Binding PrinterName}"  ItemsSource="{Binding PrinterNameOptions}"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+						<DataGridTemplateColumn Header="Paper Size" SortMemberPath="PaperSize">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<ComboBox Width="150" Margin="0" SelectedItem="{Binding PaperSize}"  ItemsSource="{Binding PaperSizeOptions}"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+						<DataGridTemplateColumn Header="Width" SortMemberPath="Width">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<NumericUpDown Width="80" Value="{Binding Width}"  ShowButtonSpinner="False"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+						<DataGridTemplateColumn Header="Height" SortMemberPath="Height">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<NumericUpDown Width="80" Value="{Binding Height}"  ShowButtonSpinner="False"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+						<DataGridTemplateColumn Header="Orientation" SortMemberPath="Orientation">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<ComboBox Width="120" Margin="0" SelectedItem="{Binding Orientation}"  ItemsSource="{Binding OrientationOptions}"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+						<DataGridTemplateColumn Header="Tray" SortMemberPath="SourceTray">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<ComboBox Width="120" Margin="0" SelectedItem="{Binding SourceTray}"  ItemsSource="{Binding SourceTrayOptions}"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+						<DataGridTemplateColumn Header="Drawing Color" SortMemberPath="DrawingColor">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<ComboBox Width="150" Margin="0" SelectedItem="{Binding DrawingColor}"  ItemsSource="{Binding DrawingColorOptions}"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+						<DataGridTemplateColumn Header="Scale to Fit" SortMemberPath="ScaleToFit">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<CheckBox IsChecked="{Binding ScaleToFit}" HorizontalAlignment="Center"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+					</DataGrid.Columns>
+				</DataGrid>
+
 				<!--Tips-->
-				<TextBlock Grid.Row="2" Text="{Binding StatusText}" Foreground="{DynamicResource AlertGradient}"
+				<TextBlock Grid.Row="6" Text="{Binding StatusText}" Foreground="{DynamicResource AlertGradient}"
 						   HorizontalAlignment="Right" TextWrapping="Wrap" Margin="0 10"/>
 
 				<!--Buttons-->
-				<Grid Grid.Row="3"
+				<Grid Grid.Row="8"
 					  ColumnDefinitions="Auto,*,10,Auto,10,Auto"
 					  VerticalAlignment="Bottom">
 
@@ -72,7 +147,7 @@
 				</Grid>
 
 				<!--Progress Text-->
-				<TextBlock Grid.Row="3" Text="{Binding ProgressText}" Foreground="{DynamicResource AlertGradient}"
+				<TextBlock Grid.Row="10" Text="{Binding ProgressText}" Foreground="{DynamicResource AlertGradient}"
 						   IsVisible="{Binding IsBusy}" Margin="0 10"
 						   HorizontalAlignment="Right" TextAlignment="Right" TextWrapping="Wrap"/>
 			</Grid>

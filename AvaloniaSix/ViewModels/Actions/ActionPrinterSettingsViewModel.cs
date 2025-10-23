@@ -1,22 +1,27 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace AvaloniaSix.ViewModels;
 
 public partial class ActionPrinterSettingsViewModel : ViewModelBase
 {
     [ObservableProperty]
-    private string type;
+    private string _id = "-1";
 
     [ObservableProperty]
-    private string _printerName;
+    private string _type = "A Size";
 
     [ObservableProperty]
-    private string _printerSize;
+    private string _printerName = "(Default)";
+
+    [ObservableProperty]
+    private ObservableCollection<string> _printerNameOptions = ["(Default)"];
+
+    [ObservableProperty]
+    private string _paperSize = "(Default)";
+
+    [ObservableProperty]
+    private ObservableCollection<string> _paperSizeOptions = ["(Default)"];
 
     [ObservableProperty]
     private double _width;
@@ -25,13 +30,31 @@ public partial class ActionPrinterSettingsViewModel : ViewModelBase
     private double _height;
 
     [ObservableProperty]
-    private bool? _portrait;
+    private string _orientation = "(Default)";
 
     [ObservableProperty]
-    private string _sourceTray;
+    private ObservableCollection<string> _orientationOptions = [
+        "(Default)",
+        "Portrait",
+        "Landscape"
+    ];
 
     [ObservableProperty]
-    private string _drawingcolor;
+    private string _sourceTray = "(Default)";
+
+    [ObservableProperty]
+    private ObservableCollection<string> _sourceTrayOptions = ["(Default)"];
+
+    [ObservableProperty]
+    private string _drawingColor = "(Default)";
+
+    [ObservableProperty]
+    private ObservableCollection<string> _drawingColorOptions = [
+        "(Default)",
+        "Automatic",
+        "Color / Greyscale",
+        "Black & White",
+    ];
 
     [ObservableProperty]
     private bool _scaleToFit;

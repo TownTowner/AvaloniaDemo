@@ -11,18 +11,35 @@ namespace AvaloniaSix.ViewModels;
 
 public partial class ViewModelBase : ObservableObject
 {
-    private static readonly JsonSerializerOptions _jsonOptions = new()
+    protected JsonSerializerOptions _jsonOptions = new()
     {
-        IgnoreReadOnlyFields = true,
-        IgnoreReadOnlyProperties = true,
+        IgnoreReadOnlyFields = false,
+        IgnoreReadOnlyProperties = false,
         WriteIndented = true,
         NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals
     };
 
-    [JsonIgnore]
     public string SavedState = "";
+
     [JsonIgnore]
-    public virtual bool HasChanged => SavedState != "" && SavedState != JsonSerializer.Serialize(this, _jsonOptions);
+    public virtual bool HasChanged
+    {
+        get
+        {
+            var t = GetType().DeclaringType ?? GetType();
+            return SavedState != "" && SavedState != JsonSerializer.Serialize(this, t, _jsonOptions);
+        }
+    }
+
+    public ViewModelBase()
+    {
+        if (Design.IsDesignMode)
+        {
+            OnDesignConstructor();
+        }
+    }
+
+    protected virtual void OnDesignConstructor() { }
 
     public void SetSaveState()
     {
@@ -63,12 +80,6 @@ public partial class PageViewModel : ViewModelBase
     public PageViewModel(ApplicationPageName pageName)
     {
         _pageName = pageName;
-
-        if (Design.IsDesignMode)
-        {
-            OnDesignConstructor();
-        }
     }
 
-    protected virtual void OnDesignConstructor() { }
 }
