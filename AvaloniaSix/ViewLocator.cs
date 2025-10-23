@@ -15,7 +15,8 @@ public class ViewLocator : IDataTemplate
         var viewName = param.GetType().FullName!.Replace("ViewModel", "View");
         var viewType = Type.GetType(viewName);
         if (viewType is null)
-            return null;
+            //    return null;
+            throw new InvalidOperationException($"View of type {viewName} not found.");
 
         var control = Activator.CreateInstance(viewType) as Control;
         control!.DataContext = param;

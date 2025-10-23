@@ -10,7 +10,7 @@
 			 Height="{Binding DialogHeight}"
 			 Foreground="{DynamicResource PrimaryForeground}"
 			 Background="{DynamicResource PrimaryBackground}"
-			 x:Class="AvaloniaSix.Views.ActionPrinterSettingsView">
+			 x:Class="AvaloniaSix.Views.ActionPrinterProfileView">
 
 	<Design.DataContext>
 		<vm:ActionPrinterProfileViewModel/>

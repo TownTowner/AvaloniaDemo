@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace AvaloniaSix.Views;
 
-public partial class ActionPrinterSettingsView : UserControl
+public partial class ActionPrinterProfileView : UserControl
 {
-    public ActionPrinterSettingsView()
+    public ActionPrinterProfileView()
     {
         InitializeComponent();
     }
