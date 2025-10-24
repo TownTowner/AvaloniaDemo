@@ -145,7 +145,7 @@ public partial class ActionsPageViewModel : PageViewModel
     }
 
     [RelayCommand]
-    public async Task DeletePrintItem(string id)
+    public async Task DeletePrintItemAsync(string id)
     {
         bool flowControl = await DeletePrintItemFromUiAsync(id, true);
         if (!flowControl)
@@ -209,28 +209,6 @@ public partial class ActionsPageViewModel : PageViewModel
     }
 
     [RelayCommand]
-    public async Task<bool> AddPrinterSettings()
-    {
-        var dialog = new ActionPrinterProfileViewModel
-        {
-            Title = "Add Printer Profile",
-            Message = "Configure the printer profile settings below.",
-            //    await Task.Delay(1000);
-            //    vm.ProgressText = "This will take a while...";
-            //    await Task.Delay(2000);
-            //    vm.StatusText = "Unable to delete the item at this time.";
-
-            //    return true;
-            //}
-        };
-        await _dialogService.ShowDialogAsync(_mainVM, dialog);
-
-        if (dialog.IsConfirmed == false)
-            return false;
-        return true;
-    }
-
-    [RelayCommand]
     public async Task CancelPrintItemAsync()
     {
         if (SelectedPrintItem is null) return;
@@ -246,21 +224,54 @@ public partial class ActionsPageViewModel : PageViewModel
     }
 
     [RelayCommand]
-    public async Task EditPrinterSettings(string id)
+    public async Task<bool> AddPrinterSettingsAsync()
+    {
+        var profile = new ActionPrinterProfileViewModel
+        {
+            //Title = "Add Printer Profile",
+            //Message = "Configure the printer profile settings below.",
+            //    await Task.Delay(1000);
+            //    vm.ProgressText = "This will take a while...";
+            //    await Task.Delay(2000);
+            //    vm.StatusText = "Unable to delete the item at this time.";
+
+            //    return true;
+            //}
+        };
+
+        InjectPrinterDetails(profile);
+
+        await _dialogService.ShowDialogAsync(_mainVM, profile);
+
+        if (profile.IsConfirmed == false)
+            return false;
+
+        PrinterProfiles.Add(profile);
+        return true;
+    }
+
+    private void InjectPrinterDetails(ActionPrinterProfileViewModel profile)
+    {
+        var printers = printerService.AvailablePrinters();
+        foreach (var setting in profile.PrinterSettings)
+        {
+            setting.PropertyChanged +=
+                (s, e) => PrinterNamePropertyChanged(s, e, printers, setting);
+        }
+    }
+
+    [RelayCommand]
+    public async Task EditPrinterSettingsAsync(string id)
     {
         var profile = PrinterProfiles?.FirstOrDefault(x => x.Id == id);
         if (profile == null)
             return;
 
-        var printers = printerService.AvailablePrinters();
         // temporary copy to edit
         var copy = new ActionPrinterProfileViewModel();
         copy.RestoreState(profile.GetSaveState());
-        foreach (var setting in copy.PrinterSettings)
-        {
-            setting.PropertyChanged +=
-                (s, e) => PrinterNamePropertyChanged(s, e, printers, setting);
-        }
+
+        InjectPrinterDetails(copy);
 
         await _dialogService.ShowDialogAsync(_mainVM, copy);
 

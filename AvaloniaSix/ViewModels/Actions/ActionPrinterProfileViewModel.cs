@@ -22,8 +22,8 @@ public partial class ActionPrinterProfileViewModel : ConfirmDialogViewModel
 
     public ActionPrinterProfileViewModel()
     {
-        Title = "Printer Profile";
-        Message = "Configure the printer profile settings below.";
+        Title = "Printer Settings";
+        Message = "Configure the printer settings below.";
         ConfirmText = "Save";
         CancelText = "Cancel";
 
