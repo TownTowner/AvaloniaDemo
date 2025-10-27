@@ -1,17 +1,20 @@
 ﻿using AvaloniaSix.Data;
 using AvaloniaSix.Entities;
 using AvaloniaSix.Factories;
+using AvaloniaSix.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AvaloniaSix.ViewModels;
 
 public partial class SettingsPageViewModel : PageViewModel
 {
     private DbFactory _dbFactory;
+    private DialogService _dialogService;
 
     [ObservableProperty] private bool _skipNoActionFiles;
 
@@ -35,14 +38,16 @@ public partial class SettingsPageViewModel : PageViewModel
     private ObservableCollection<string> _locationPaths = [];
 
     public SettingsPageViewModel()
-        : this(new DbFactory(() => new(new())))
+        : this(new DbFactory(() => new(new())), new(() => null))
     {
         // Parameterless constructor for design-time tools
     }
 
-    public SettingsPageViewModel(DbFactory dbFactory) : base(ApplicationPageName.Settings)
+    public SettingsPageViewModel(DbFactory dbFactory, DialogService dialogService)
+        : base(ApplicationPageName.Settings)
     {
         _dbFactory = dbFactory;
+        _dialogService = dialogService;
 
         LoadSettings();
     }
@@ -63,6 +68,29 @@ public partial class SettingsPageViewModel : PageViewModel
     [RelayCommand]
     private void PdmLogin()
     {
+        SaveSettings();
+    }
+
+    [RelayCommand]
+    private async Task AddLocationPath()
+    {
+        var result = await _dialogService.FolderPicker();
+        var ig = StringComparison.InvariantCultureIgnoreCase;
+        if (string.IsNullOrEmpty(result) || LocationPaths.Any(x => string.Equals(x, result, ig)))
+            return;
+
+        LocationPaths.Add(result);
+
+        LocationPaths = new(LocationPaths.OrderBy(x => x));
+
+        SaveSettings();
+    }
+
+    [RelayCommand]
+    private void DeleteLocationPath(string path)
+    {
+        LocationPaths.Remove(path);
+
         SaveSettings();
     }
 

@@ -1,4 +1,5 @@
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Metadata;
@@ -45,8 +46,24 @@ public partial class App : Application
             _ => throw new InvalidOperationException($"Page of type {type?.FullName} has no view model"),
         });
         collections.AddSingleton<PageFactory>();
-        collections.AddSingleton<DialogService>();
         collections.AddSingleton<PrinterService>();
+        collections.AddSingleton<Func<TopLevel?>>(x =>
+        {
+            return () =>
+            {
+                if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime topWindow)
+                {
+                    return TopLevel.GetTopLevel(topWindow.MainWindow);
+                }
+                else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
+                {
+                    return TopLevel.GetTopLevel(singleViewPlatform.MainView);
+                }
+
+                throw new InvalidOperationException("No valid TopLevel found for the current application lifetime.");
+            };
+        });
+        collections.AddSingleton<DialogService>();
 
         //db
         collections.AddTransient<AvaSixDbContext>();

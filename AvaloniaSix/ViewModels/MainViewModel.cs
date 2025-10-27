@@ -46,7 +46,7 @@ public partial class MainViewModel : ViewModelBase, IDialogProvider
     {
         // Parameterless constructor for design-time tools
         if (Design.IsDesignMode)
-            CurrentPage = new SettingsPageViewModel(new(() => new DbService(new())));// Default page for design-time
+            CurrentPage = new SettingsPageViewModel(new(() => new(new())), new(() => null));// Default page for design-time
     }
 
     public MainViewModel(PageFactory pageFactory, DbFactory dbFactory)
