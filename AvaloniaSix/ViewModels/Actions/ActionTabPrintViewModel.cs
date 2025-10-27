@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace AvaloniaSix.ViewModels;
 
-public partial class ActionPrintViewModel : ViewModelBase
+public partial class ActionTabPrintViewModel : ViewModelBase
 {
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HasChanged))]

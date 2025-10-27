@@ -1,14 +1,11 @@
-﻿using Avalonia.Input;
-using AvaloniaSix.Data;
+﻿using AvaloniaSix.Data;
 using AvaloniaSix.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace AvaloniaSix.ViewModels;
@@ -19,7 +16,7 @@ public partial class ActionsPageViewModel : PageViewModel
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(PrintListHasItems))]
-    private ObservableCollection<ActionPrintViewModel> _printList = [];
+    private ObservableCollection<ActionTabPrintViewModel> _printList = [];
 
     public bool PrintListHasItems => PrintList?.Any() ?? false;
 
@@ -27,7 +24,7 @@ public partial class ActionsPageViewModel : PageViewModel
     [NotifyPropertyChangedFor(nameof(SelectedPrintItem))]
     private string? _selectedPrintItemId;
 
-    public ActionPrintViewModel? SelectedPrintItem => PrintList?.FirstOrDefault(x => x.Id == SelectedPrintItemId);
+    public ActionTabPrintViewModel? SelectedPrintItem => PrintList?.FirstOrDefault(x => x.Id == SelectedPrintItemId);
 
     [ObservableProperty]
     private ObservableCollection<ActionPrinterProfileViewModel> _printerProfiles = [];
@@ -62,7 +59,7 @@ public partial class ActionsPageViewModel : PageViewModel
         var printers = printerService.AvailablePrinters();
         var printerOptions = new ObservableCollection<string>(printers.Select(x => x.Name));
 
-        var profileSetting = new ActionPrinterSettingsViewModel()
+        var profileSetting = new ActionPrintSettingsProfileViewModel()
         {
             Id = "0",
             Width = 210,
@@ -73,26 +70,26 @@ public partial class ActionsPageViewModel : PageViewModel
         };
         profileSetting.PropertyChanged += (s, a) => PrinterNamePropertyChanged(s, a, printers, profileSetting);
 
-        var profileSettingList = new ObservableCollection<ActionPrinterSettingsViewModel> { profileSetting, profileSetting, profileSetting };
+        var profileSettingList = new ObservableCollection<ActionPrintSettingsProfileViewModel> { profileSetting, profileSetting, profileSetting };
 
-        defaultProfile.PrinterSettings = profileSettingList;
+        defaultProfile.PrintSettingsProfiles = profileSettingList;
         PrinterProfiles = new ObservableCollection<ActionPrinterProfileViewModel>
         {
             defaultProfile,
-            new (){Id="1", Copies=3, Name="Office Printer", Description=@"Office-Printer\HP LaserJet",PrinterSettings=profileSettingList},
-            new (){Id="2", Copies=2, Name="Plotter", Description=@"Plotters\EPSON Stylus Pro", PrinterSettings=profileSettingList},
-            new(){Id="3", Copies=1, Name="Home Printer", Description=@"Home-Printer\Canon Pixma",PrinterSettings=profileSettingList }
+            new (){Id="1", Copies=3, Name="Office Printer", Description=@"Office-Printer\HP LaserJet",PrintSettingsProfiles=profileSettingList},
+            new (){Id="2", Copies=2, Name="Plotter", Description=@"Plotters\EPSON Stylus Pro", PrintSettingsProfiles=profileSettingList},
+            new(){Id="3", Copies=1, Name="Home Printer", Description=@"Home-Printer\Canon Pixma",PrintSettingsProfiles=profileSettingList }
         };
     }
 
     private void PrinterNamePropertyChanged(object? sender, PropertyChangedEventArgs args,
         ObservableCollection<PrinterDetailsViewModel> printers,
-        ActionPrinterSettingsViewModel profileSetting)
+        ActionPrintSettingsProfileViewModel profileSetting)
     {
-        if (args.PropertyName != nameof(ActionPrinterSettingsViewModel.PrinterName))
+        if (args.PropertyName != nameof(ActionPrintSettingsProfileViewModel.PrinterName))
             return;
 
-        var setting = sender as ActionPrinterSettingsViewModel ?? profileSetting;
+        var setting = sender as ActionPrintSettingsProfileViewModel ?? profileSetting;
         var printer = printers.FirstOrDefault(x => x.Name == setting.PrinterName);
         if (printer == null)
             return;
@@ -114,7 +111,7 @@ public partial class ActionsPageViewModel : PageViewModel
     {
         FetchPrintProfiles();
 
-        PrintList = new ObservableCollection<ActionPrintViewModel>
+        PrintList = new ObservableCollection<ActionTabPrintViewModel>
         {
             new() { Id = "1", JobName = "Print only drawings",  PrintDrawingRange="0,5,7-8",IsPrintDrawing=true,Description="Prints only drawing files",
             DrawingExclusionList=$"Some Text;{Environment.NewLine}Some Text;{Environment.NewLine}Some Text",
@@ -197,7 +194,7 @@ public partial class ActionsPageViewModel : PageViewModel
     [RelayCommand]
     public void AddPrintItem()
     {
-        var item = new ActionPrintViewModel()
+        var item = new ActionTabPrintViewModel()
         {
             Id = Guid.NewGuid().ToString(),
             IsNewItem = true,
@@ -253,7 +250,7 @@ public partial class ActionsPageViewModel : PageViewModel
     private void InjectPrinterDetails(ActionPrinterProfileViewModel profile)
     {
         var printers = printerService.AvailablePrinters();
-        foreach (var setting in profile.PrinterSettings)
+        foreach (var setting in profile.PrintSettingsProfiles)
         {
             setting.PropertyChanged +=
                 (s, e) => PrinterNamePropertyChanged(s, e, printers, setting);

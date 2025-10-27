@@ -48,7 +48,7 @@
 				</Grid>
 
 				<!--Printer Settings:-->
-				<DataGrid Grid.Row="4" ItemsSource="{Binding PrinterSettings}"
+				<DataGrid Grid.Row="4" ItemsSource="{Binding PrintSettingsProfiles}"
 						  Background="{DynamicResource PrimaryBackgroundColor2}">
 					<DataGrid.Styles>
 						<Style Selector="DataGrid DataGridColumnHeader">

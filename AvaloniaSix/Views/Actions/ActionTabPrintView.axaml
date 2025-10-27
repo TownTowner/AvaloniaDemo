@@ -7,7 +7,7 @@
 			 Foreground="{DynamicResource PrimaryForeground}"
 			 xmlns:vm="using:AvaloniaSix.ViewModels"
 			 x:DataType="vm:ActionsPageViewModel"
-			 x:Class="AvaloniaSix.Views.ActionPrintView">
+			 x:Class="AvaloniaSix.Views.ActionTabPrintView">
 
 	<Design.DataContext>
 		<vm:ActionsPageViewModel/>
@@ -28,7 +28,7 @@
 					 SelectedValue="{Binding SelectedPrintItemId}"
 					 SelectionChanged="PrintList_SelectionChanged">
 				<ListBox.ItemTemplate>
-					<DataTemplate x:DataType="vm:ActionPrintViewModel">
+					<DataTemplate x:DataType="vm:ActionTabPrintViewModel">
 						<Grid ColumnDefinitions="*,Auto">
 							<Label Content="{Binding JobName}" VerticalAlignment="Center"
 								   FontWeight="{Binding HasChanged, Converter={StaticResource BooleanToBoldFontConverter}}"/>

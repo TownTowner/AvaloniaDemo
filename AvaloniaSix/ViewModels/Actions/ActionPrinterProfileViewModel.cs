@@ -18,7 +18,7 @@ public partial class ActionPrinterProfileViewModel : ConfirmDialogViewModel
     private int _copies = 0;
 
     [ObservableProperty]
-    private ObservableCollection<ActionPrinterSettingsViewModel> _printerSettings = [];
+    private ObservableCollection<ActionPrintSettingsProfileViewModel> _printSettingsProfiles = [];
 
     public ActionPrinterProfileViewModel()
     {
@@ -39,7 +39,7 @@ public partial class ActionPrinterProfileViewModel : ConfirmDialogViewModel
 
     private void InitializeDesignData()
     {
-        var profileSetting = new ActionPrinterSettingsViewModel()
+        var profileSetting = new ActionPrintSettingsProfileViewModel()
         {
             Id = "0",
             Width = 210,
@@ -47,6 +47,6 @@ public partial class ActionPrinterProfileViewModel : ConfirmDialogViewModel
             Orientation = "Portrait",
             PaperSize = "A4",
         };
-        PrinterSettings = [profileSetting, profileSetting, profileSetting];
+        PrintSettingsProfiles = [profileSetting, profileSetting, profileSetting];
     }
 }

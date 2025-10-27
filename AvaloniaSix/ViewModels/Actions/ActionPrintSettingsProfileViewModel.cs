@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace AvaloniaSix.ViewModels;
 
-public partial class ActionPrinterSettingsViewModel : ViewModelBase
+public partial class ActionPrintSettingsProfileViewModel : ViewModelBase
 {
     [ObservableProperty]
     private string _id = "-1";

@@ -29,7 +29,7 @@
 		<Border Grid.Row="1" Padding="25">
 			<TabControl Name="ActionsTabControl" SelectionChanged="ActionTab_SelectionChanged">
 				<TabItem Header="Print" IsSelected="True">
-					<view:ActionPrintView/>
+					<view:ActionTabPrintView/>
 				</TabItem>
 				<TabItem Header="Custom Properties">
 					local:ActionCustomPropertiesView/>

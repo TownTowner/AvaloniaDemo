@@ -37,7 +37,7 @@ public partial class ActionsPageView : UserControl
 
         var actionTabName = selectedPage switch
         {
-            ActionPrintView => ActionsTabName.Print,
+            ActionTabPrintView => ActionsTabName.Print,
             _ => ActionsTabName.Print
         };
 

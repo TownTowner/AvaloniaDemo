@@ -34,6 +34,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\Actions\ActionTabPrintView.axaml.cs">
+      <DependentUpon>ActionTabPrintView.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\MainWindow.axaml.cs">
       <DependentUpon>Views\MainWindow.axaml</DependentUpon>
     </Compile>
