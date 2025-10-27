@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Metadata;
+using AvaloniaSix.Entities;
 using AvaloniaSix.Factories;
 using AvaloniaSix.Services;
 using AvaloniaSix.ViewModels;
@@ -46,6 +47,13 @@ public partial class App : Application
         collections.AddSingleton<PageFactory>();
         collections.AddSingleton<DialogService>();
         collections.AddSingleton<PrinterService>();
+
+        //db
+        collections.AddTransient<AvaSixDbContext>();
+        collections.AddTransient<DbService>();
+        collections.AddSingleton<Func<DbService>>(x => x.GetRequiredService<DbService>);
+        collections.AddSingleton<DbFactory>();
+
 
         var services = collections.BuildServiceProvider();
 

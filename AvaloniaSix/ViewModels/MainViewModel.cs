@@ -2,14 +2,17 @@
 using AvaloniaSix.Data;
 using AvaloniaSix.Factories;
 using AvaloniaSix.Interfaces;
+using AvaloniaSix.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System;
 
 namespace AvaloniaSix.ViewModels;
 
 public partial class MainViewModel : ViewModelBase, IDialogProvider
 {
     private PageFactory _pageFactory;
+    private DbFactory _dbFactory;
 
     [ObservableProperty]
     //[NotifyPropertyChangedFor(nameof(SideMenuImg))]
@@ -43,12 +46,17 @@ public partial class MainViewModel : ViewModelBase, IDialogProvider
     {
         // Parameterless constructor for design-time tools
         if (Design.IsDesignMode)
-            CurrentPage = new ActionsPageViewModel(new(), new(), new());// Default page for design-time
+            CurrentPage = new SettingsPageViewModel(new(() => new DbService(new())));// Default page for design-time
     }
 
-    public MainViewModel(PageFactory pageFactory)
+    public MainViewModel(PageFactory pageFactory, DbFactory dbFactory)
     {
-        this._pageFactory = pageFactory;
+        this._pageFactory = pageFactory ?? throw new ArgumentNullException(nameof(pageFactory));
+        this._dbFactory = dbFactory ?? throw new ArgumentNullException(nameof(dbFactory));
+
+        using var dbService = _dbFactory.GetDbService();
+        dbService.ApplyMigrations();
+
         GoToHome();
     }
 

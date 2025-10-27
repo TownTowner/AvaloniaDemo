@@ -70,6 +70,8 @@ public partial class ViewModelBase : ObservableObject
             item.SetValue(this, value);
         }
     }
+
+    public virtual void OnViewLoaded() { }
 }
 
 public partial class PageViewModel : ViewModelBase
