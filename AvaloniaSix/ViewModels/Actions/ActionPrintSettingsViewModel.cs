@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace AvaloniaSix.ViewModels;
 
-public partial class ActionPrinterProfileViewModel : ConfirmDialogViewModel
+public partial class ActionPrintSettingsViewModel : ConfirmDialogViewModel
 {
     [ObservableProperty]
     private string _id = string.Empty;
@@ -20,7 +20,7 @@ public partial class ActionPrinterProfileViewModel : ConfirmDialogViewModel
     [ObservableProperty]
     private ObservableCollection<ActionPrintSettingsProfileViewModel> _printSettingsProfiles = [];
 
-    public ActionPrinterProfileViewModel()
+    public ActionPrintSettingsViewModel()
     {
         Title = "Printer Settings";
         Message = "Configure the printer settings below.";

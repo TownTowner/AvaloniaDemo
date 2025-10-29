@@ -10,11 +10,11 @@
 			 Foreground="{DynamicResource PrimaryForeground}"
 			 Background="{DynamicResource PrimaryBackground}"
 			 xmlns:vm="using:AvaloniaSix.ViewModels"
-			 x:DataType="vm:ActionPrinterProfileViewModel"
-			 x:Class="AvaloniaSix.Views.ActionPrinterProfileView">
+			 x:DataType="vm:ActionPrintSettingsViewModel"
+			 x:Class="AvaloniaSix.Views.ActionPrintSettingsView">
 
 	<Design.DataContext>
-		<vm:ActionPrinterProfileViewModel/>
+		<vm:ActionPrintSettingsViewModel/>
 	</Design.DataContext>
 
 	<Border CornerRadius="20" ClipToBounds="True" Margin="10"

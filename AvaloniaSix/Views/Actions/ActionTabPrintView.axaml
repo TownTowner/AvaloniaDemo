@@ -95,7 +95,7 @@
 						 SelectedValue="{Binding SelectedPrintItem.PrinterProfileId}"
 						 >
 					<ListBox.ItemTemplate>
-						<DataTemplate x:DataType="vm:ActionPrinterProfileViewModel">
+						<DataTemplate x:DataType="vm:ActionPrintSettingsViewModel">
 							<Grid ColumnDefinitions="*,10,Auto,10,Auto">
 								<StackPanel Grid.Column="0">
 									<Label Classes="h3" Content="{Binding Name}" VerticalAlignment="Center" Margin="-4 0 0 0"/>

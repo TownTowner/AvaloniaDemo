@@ -5,11 +5,11 @@
 			 xmlns:system="using:System"
 			 xmlns:vm="clr-namespace:AvaloniaSix.ViewModels"
 			 mc:Ignorable="d" d:DesignWidth="1400" d:DesignHeight="900"
+			 x:Class="AvaloniaSix.Views.SettingsPageView"
+			 x:DataType="vm:SettingsPageViewModel"
 			 Background="{DynamicResource PrimaryBackground}"
 			 Foreground="{DynamicResource PrimaryForeground}"
 			 Loaded="OnViewLoaded"
-			 x:Class="AvaloniaSix.Views.SettingsPageView"
-			 x:DataType="vm:SettingsPageViewModel"
 			 >
 	<Design.DataContext>
 		<vm:SettingsPageViewModel/>

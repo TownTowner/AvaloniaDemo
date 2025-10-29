@@ -12,7 +12,7 @@ namespace AvaloniaSix.ViewModels;
 
 public partial class ActionsPageViewModel : PageViewModel
 {
-    private ActionPrinterProfileViewModel defaultProfile = new() { Id = "0", Copies = 1, Name = "(Default)PDF Printer", Description = @"Virtual Printers\Microsoft PDF" };
+    private ActionPrintSettingsViewModel defaultProfile = new() { Id = "0", Copies = 1, Name = "(Default)PDF Printer", Description = @"Virtual Printers\Microsoft PDF" };
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(PrintListHasItems))]
@@ -27,7 +27,7 @@ public partial class ActionsPageViewModel : PageViewModel
     public ActionTabPrintViewModel? SelectedPrintItem => PrintList?.FirstOrDefault(x => x.Id == SelectedPrintItemId);
 
     [ObservableProperty]
-    private ObservableCollection<ActionPrinterProfileViewModel> _printerProfiles = [];
+    private ObservableCollection<ActionPrintSettingsViewModel> _printerProfiles = [];
 
     private readonly MainViewModel _mainVM;
     private readonly DialogService _dialogService;
@@ -73,7 +73,7 @@ public partial class ActionsPageViewModel : PageViewModel
         var profileSettingList = new ObservableCollection<ActionPrintSettingsProfileViewModel> { profileSetting, profileSetting, profileSetting };
 
         defaultProfile.PrintSettingsProfiles = profileSettingList;
-        PrinterProfiles = new ObservableCollection<ActionPrinterProfileViewModel>
+        PrinterProfiles = new ObservableCollection<ActionPrintSettingsViewModel>
         {
             defaultProfile,
             new (){Id="1", Copies=3, Name="Office Printer", Description=@"Office-Printer\HP LaserJet",PrintSettingsProfiles=profileSettingList},
@@ -223,7 +223,7 @@ public partial class ActionsPageViewModel : PageViewModel
     [RelayCommand]
     public async Task<bool> AddPrinterSettingsAsync()
     {
-        var profile = new ActionPrinterProfileViewModel
+        var profile = new ActionPrintSettingsViewModel
         {
             //Title = "Add Printer Profile",
             //Message = "Configure the printer profile settings below.",
@@ -247,7 +247,7 @@ public partial class ActionsPageViewModel : PageViewModel
         return true;
     }
 
-    private void InjectPrinterDetails(ActionPrinterProfileViewModel profile)
+    private void InjectPrinterDetails(ActionPrintSettingsViewModel profile)
     {
         var printers = printerService.AvailablePrinters();
         foreach (var setting in profile.PrintSettingsProfiles)
@@ -265,7 +265,7 @@ public partial class ActionsPageViewModel : PageViewModel
             return;
 
         // temporary copy to edit
-        var copy = new ActionPrinterProfileViewModel();
+        var copy = new ActionPrintSettingsViewModel();
         copy.RestoreState(profile.GetSaveState());
 
         InjectPrinterDetails(copy);
