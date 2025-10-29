@@ -4,11 +4,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AvaloniaSix.Entities;
 
-public class Setting
+public class Setting : EntityBase
 {
-    [MaxLength(100)]
-    public string Id { get; set; } = Guid.NewGuid().ToString("N");
-
     public bool SkipNoActionFiles { get; set; }
 
     public bool AllowDuplicateEntries { get; set; }

@@ -28,9 +28,9 @@ public partial class ActionTabPrintViewModel : ViewModelBase
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HasChanged))]
     [NotifyPropertyChangedFor(nameof(DrawingExclusionListTitle))]
-    private bool _isDrawingExclusionIsWhiteList;
+    private bool _drawingExclusionIsWhiteList;
 
-    public string DrawingExclusionListTitle => IsDrawingExclusionIsWhiteList ? "White List" : "Black List";
+    public string DrawingExclusionListTitle => DrawingExclusionIsWhiteList ? "White List" : "Black List";
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HasChanged))]
@@ -45,7 +45,7 @@ public partial class ActionTabPrintViewModel : ViewModelBase
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HasChanged))]
-    private string _printerProfileId = "";
+    private string _printSettingsId = "";
 
     [JsonIgnore]
     public override bool HasChanged => IsNewItem || base.HasChanged;

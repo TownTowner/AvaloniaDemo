@@ -14,6 +14,12 @@ public partial class ActionPrintSettingsViewModel : ConfirmDialogViewModel
     [ObservableProperty]
     private string _description = string.Empty;
 
+    [ObservableProperty] 
+    private bool _canEdit = true;
+
+    [ObservableProperty] 
+    private bool _canDelete = true;
+
     [ObservableProperty]
     private int _copies = 0;
 
