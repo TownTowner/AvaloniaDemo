@@ -1,4 +1,5 @@
 ﻿using AvaloniaSix.Data;
+using AvaloniaSix.Entities;
 using AvaloniaSix.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -17,7 +18,7 @@ public partial class ActionsPageViewModel : PageViewModel
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(PrintListHasItems))]
-    private ObservableCollection<ActionTabPrintViewModel> _printList = [];
+    private ObservableCollection<ActionPrintViewModel> _printList = [];
 
     public bool PrintListHasItems => PrintList?.Any() ?? false;
 
@@ -25,7 +26,7 @@ public partial class ActionsPageViewModel : PageViewModel
     [NotifyPropertyChangedFor(nameof(SelectedPrintItem))]
     private string? _selectedPrintItemId;
 
-    public ActionTabPrintViewModel? SelectedPrintItem => PrintList?.FirstOrDefault(x => x.Id == SelectedPrintItemId);
+    public ActionPrintViewModel? SelectedPrintItem => PrintList?.FirstOrDefault(x => x.Id == SelectedPrintItemId);
 
     [ObservableProperty]
     private ObservableCollection<ActionPrintSettingsViewModel> _printSettings = [];
@@ -96,9 +97,9 @@ public partial class ActionsPageViewModel : PageViewModel
 
         var printList = _dbService.GetPrintList();
 
-        PrintList = new(printList.Select(x =>
+        PrintList = new(printList.Select((Func<ActionPrint, ActionPrintViewModel>)(x =>
         {
-            var vm = new ActionTabPrintViewModel()
+            var vm = new ActionPrintViewModel()
             {
                 Id = x.Id,
                 JobName = x.JobName,
@@ -112,7 +113,7 @@ public partial class ActionsPageViewModel : PageViewModel
             };
 
             return vm;
-        }));
+        })));
 
         PrintList.CollectionChanged += (_, _) =>
         {
@@ -131,6 +132,37 @@ public partial class ActionsPageViewModel : PageViewModel
     protected override void OnDesignConstructor()
     {
         FetchPrintList();
+    }
+
+    [RelayCommand]
+    public void AddPrintItem()
+    {
+        var item = new ActionPrintViewModel()
+        {
+            Id = Guid.NewGuid().ToString("N"),
+            IsNewItem = true,
+            JobName = "New Job Print Item",
+            PrintSettingsId = defaultSettings.Id
+        };
+        SelectedPrintItemId = item.Id;
+        PrintList?.Add(item);
+    }
+
+    [RelayCommand]
+    public async Task SavePrintItemAsync()
+    {
+        if (SelectedPrintItem is null) return;
+
+        var entity = SelectedPrintItem.ToEntity();
+        if (SelectedPrintItem.IsNewItem)
+            entity = _dbService.AddPrintListItem(entity);
+        else
+            entity = _dbService.UpdatePrintListItem(entity);
+
+        SelectedPrintItem.IsNewItem = false;
+        FetchPrintList();
+        SelectedPrintItemId = entity.Id;
+        SelectedPrintItem.SetSaveState();
     }
 
     [RelayCommand]
@@ -181,20 +213,6 @@ public partial class ActionsPageViewModel : PageViewModel
         if (index >= 0 && PrintList.Count > index)
             SelectedPrintItemId = PrintList[index].Id;
         return true;
-    }
-
-    [RelayCommand]
-    public void AddPrintItem()
-    {
-        var item = new ActionTabPrintViewModel()
-        {
-            Id = Guid.NewGuid().ToString("N"),
-            IsNewItem = true,
-            JobName = "New Job Print Item",
-            PrintSettingsId = defaultSettings.Id
-        };
-        SelectedPrintItemId = item.Id;
-        PrintList?.Add(item);
     }
 
     [RelayCommand]

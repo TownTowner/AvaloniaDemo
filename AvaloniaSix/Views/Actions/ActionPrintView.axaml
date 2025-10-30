@@ -7,7 +7,7 @@
 			 Foreground="{DynamicResource PrimaryForeground}"
 			 xmlns:vm="using:AvaloniaSix.ViewModels"
 			 x:DataType="vm:ActionsPageViewModel"
-			 x:Class="AvaloniaSix.Views.ActionTabPrintView">
+			 x:Class="AvaloniaSix.Views.ActionPrintView">
 
 	<Design.DataContext>
 		<vm:ActionsPageViewModel/>
@@ -28,7 +28,7 @@
 					 SelectedValue="{Binding SelectedPrintItemId}"
 					 SelectionChanged="PrintList_SelectionChanged">
 				<ListBox.ItemTemplate>
-					<DataTemplate x:DataType="vm:ActionTabPrintViewModel">
+					<DataTemplate x:DataType="vm:ActionPrintViewModel">
 						<Grid ColumnDefinitions="*,Auto">
 							<Label Content="{Binding JobName}" VerticalAlignment="Center"
 								   FontWeight="{Binding HasChanged, Converter={StaticResource BooleanToBoldFontConverter}}"/>
@@ -141,8 +141,10 @@
 				<StackPanel Spacing="10" Grid.Row="6" Orientation="Horizontal"
 							VerticalAlignment="Bottom" HorizontalAlignment="Right"
 							Opacity="{Binding SelectedPrintItem.HasChanged, FallbackValue=0}">
-					<Button Classes="small outline" Content="Cancel" Command="{Binding CancelPrintItemCommand}"/>
-					<Button Classes="small success" Content="Save" />
+					<Button Classes="small outline" Content="Cancel"
+							Command="{Binding CancelPrintItemCommand}"/>
+					<Button Classes="small success" Content="Save"
+							Command="{Binding SavePrintItemCommand}"/>
 
 					<StackPanel.Styles>
 						<Style Selector="StackPanel">

@@ -6,7 +6,7 @@ public class AvaSixDbContext : DbContext
 {
     public DbSet<ActionPrintSettings> ActionPrintSettingses { get; set; }
     public DbSet<ActionPrintSettingsProfile> ActionPrintSettingsProfiles { get; set; }
-    public DbSet<ActionTabPrint> ActionTabPrints { get; set; }
+    public DbSet<ActionPrint> ActionPrints { get; set; }
 
     public DbSet<Setting> Settings { get; set; }
 

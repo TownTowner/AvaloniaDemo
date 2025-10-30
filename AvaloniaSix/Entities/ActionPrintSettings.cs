@@ -10,7 +10,7 @@ public class ActionPrintSettings : ActionEntityBase
 
     public List<ActionPrintSettingsProfile> ActionPrintSettingsProfiles { get; init; }
 
-    public List<ActionTabPrint> ActionTabPrints { get; init; }
+    public List<ActionPrint> ActionTabPrints { get; init; }
 
     public int Copies { get; init; }
 }

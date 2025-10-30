@@ -37,8 +37,8 @@
     <Compile Update="Views\Actions\ActionPrintSettingsView.axaml.cs">
       <DependentUpon>ActionPrintSettingsView.axaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Actions\ActionTabPrintView.axaml.cs">
-      <DependentUpon>ActionTabPrintView.axaml</DependentUpon>
+    <Compile Update="Views\Actions\ActionPrintView.axaml.cs">
+      <DependentUpon>ActionPrintView.axaml</DependentUpon>
     </Compile>
     <Compile Update="Views\MainWindow.axaml.cs">
       <DependentUpon>Views\MainWindow.axaml</DependentUpon>

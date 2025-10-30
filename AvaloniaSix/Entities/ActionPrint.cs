@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AvaloniaSix.Entities;
 
-public class ActionTabPrint : ActionEntityBase
+public class ActionPrint : ActionEntityBase
 {
     [MaxLength(500)]
     public string PrintDrawingRange { get; set; } = "";

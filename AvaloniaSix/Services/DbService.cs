@@ -1,11 +1,8 @@
 ﻿using AvaloniaSix.Entities;
 using AvaloniaSix.ViewModels;
 using Microsoft.EntityFrameworkCore;
-using SkiaSharp;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +25,7 @@ public class DbService : IDisposable
         //_dbContext.Database.Migrate();
     }
 
+    #region Settings
     public Setting GetSetting()
     {
         var setting = _dbContext.Settings.FirstOrDefault();
@@ -49,10 +47,12 @@ public class DbService : IDisposable
         _dbContext.Settings.Add(setting);
         _dbContext.SaveChanges();
     }
+    #endregion
 
-    public List<ActionTabPrint> GetPrintList()
+    #region Print Tabs
+    public List<ActionPrint> GetPrintList()
     {
-        var printList = _dbContext.ActionTabPrints.AsNoTracking().ToList();
+        var printList = _dbContext.ActionPrints.AsNoTracking().ToList();
         if (printList.Any()) return printList;
 
         var setting = _dbContext.ActionPrintSettingses.FirstOrDefault();
@@ -70,6 +70,48 @@ public class DbService : IDisposable
 
         return printList;
     }
+
+    public ActionPrint AddPrintListItem(ActionPrint entity)
+    {
+        ArgumentNullException.ThrowIfNull(entity, nameof(entity));
+
+        _dbContext.ActionPrints.Add(entity);
+
+        _dbContext.SaveChanges();
+
+        return entity;
+    }
+
+    public ActionPrint UpdatePrintListItem(ActionPrint entity)
+    {
+        ArgumentNullException.ThrowIfNull(entity, nameof(entity));
+        ArgumentException.ThrowIfNullOrEmpty(entity.Id, nameof(entity.Id));
+
+        var check = _dbContext.ActionPrints.Find(entity.Id);
+        if (check != null)
+            _dbContext.ActionPrints.Remove(check);
+
+        _dbContext.ActionPrints.Add(entity);
+        _dbContext.SaveChanges();
+
+        return entity;
+    }
+
+    public void DeletePrintListItem(ActionPrint entity)
+    {
+        ArgumentNullException.ThrowIfNull(entity, nameof(entity));
+        ArgumentException.ThrowIfNullOrEmpty(entity.Id, nameof(entity.Id));
+
+        var check = _dbContext.ActionPrints.Find(entity.Id);
+        if (check == null) return;
+
+        _dbContext.ActionPrints.Remove(check);
+        _dbContext.SaveChanges();
+    }
+
+    #endregion
+
+    #region Print Settings
 
     public List<ActionPrintSettingsProfile> GetPrintSettingsProfiles()
     {
@@ -135,6 +177,47 @@ public class DbService : IDisposable
 
         return settings;
     }
+
+    public ActionPrintSettings AddPrintSettings(ActionPrintSettings entity)
+    {
+        ArgumentNullException.ThrowIfNull(entity, nameof(entity));
+
+        _dbContext.ActionPrintSettingses.Add(entity);
+
+        _dbContext.SaveChanges();
+
+        return entity;
+    }
+
+    public ActionPrintSettings UpdatePrintSettings(ActionPrintSettings entity)
+    {
+        ArgumentNullException.ThrowIfNull(entity, nameof(entity));
+        ArgumentException.ThrowIfNullOrEmpty(entity.Id, nameof(entity.Id));
+
+        var check = _dbContext.ActionPrintSettingses.Find(entity.Id);
+        if (check != null)
+            _dbContext.ActionPrintSettingses.Remove(check);
+
+        _dbContext.ActionPrintSettingses.Add(entity);
+        _dbContext.SaveChanges();
+
+        return entity;
+    }
+
+    public void DeletePrintSettings(ActionPrintSettings entity)
+    {
+        ArgumentNullException.ThrowIfNull(entity, nameof(entity));
+        ArgumentException.ThrowIfNullOrEmpty(entity.Id, nameof(entity.Id));
+
+        var check = _dbContext.ActionPrintSettingses.Find(entity.Id);
+        if (check == null) return;
+
+        _dbContext.ActionPrintSettingses.Remove(check);
+        _dbContext.SaveChanges();
+    }
+
+    #endregion
+
 
     public void Dispose()
     {

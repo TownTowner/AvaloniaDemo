@@ -1,9 +1,6 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 using AvaloniaSix.Data;
 using AvaloniaSix.ViewModels;
-using System;
 
 namespace AvaloniaSix.Views;
 
@@ -37,7 +34,7 @@ public partial class ActionsPageView : UserControl
 
         var actionTabName = selectedPage switch
         {
-            ActionTabPrintView => ActionsTabName.Print,
+            ActionPrintView => ActionsTabName.Print,
             _ => ActionsTabName.Print
         };
 

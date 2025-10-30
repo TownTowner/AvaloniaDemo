@@ -5,8 +5,17 @@ using System.Linq;
 
 namespace AvaloniaSix.ViewModels;
 
-public static class ActionPrintSettingsViewModelExtensions
+public static class ActionViewModelExtensions
 {
+    public static ActionViewModelBase ToViewModel(this ActionEntityBase entityBase) =>
+    new()
+    {
+        Id = entityBase.Id,
+        JobName = entityBase.JobName,
+        Description = entityBase.Description,
+        SortOrder = entityBase.SortOrder
+    };
+
     public static ActionPrintSettings ToEntity(this ActionPrintSettingsViewModel viewModel)
     {
         return new ActionPrintSettings()
@@ -37,19 +46,7 @@ public static class ActionPrintSettingsViewModelExtensions
             CanDelete = entity.CanDelete,
             PrintSettingsProfiles = new(entity.ActionPrintSettingsProfiles
                 .OrderBy(profile => profile.Type)
-                .Select(profile => new ActionPrintSettingsProfileViewModel
-                {
-                    Id = profile.Id,
-                    DrawingColor = profile.DrawingColor,
-                    Height = profile.Height,
-                    Orientation = profile.Orientation,
-                    PaperSize = profile.PaperSize,
-                    PrinterName = profile.PrinterName,
-                    ScaleToFit = profile.ScaleToFit,
-                    SourceTray = profile.SourceTray,
-                    Type = profile.Type,
-                    Width = profile.Width,
-                }))
+                .Select(ToViewModel))
         };
     }
 
@@ -60,10 +57,7 @@ public static class ActionPrintSettingsViewModelExtensions
             .OrderBy(f => f.JobName)
             .Select(ToViewModel));
     }
-}
 
-public static class ActionPrintSettingsProfileViewModelExtensions
-{
     public static ActionPrintSettingsProfile ToEntity(this ActionPrintSettingsProfileViewModel viewModel)
     {
         return new()
@@ -104,6 +98,32 @@ public static class ActionPrintSettingsProfileViewModelExtensions
 
     public static ObservableCollection<ActionPrintSettingsProfileViewModel> ToViewModels(
         this List<ActionPrintSettingsProfile> entities) =>
-        new(entities.Select(ToViewModel).ToList());
+        new(entities.Select(ToViewModel));
 
+    public static ActionPrint ToEntity(this ActionPrintViewModel viewModel) => new()
+    {
+        Id = viewModel.Id,
+        Description = viewModel.Description,
+        DrawingExclusionIsWhiteList = viewModel.DrawingExclusionIsWhiteList,
+        DrawingExclusionList = viewModel.DrawingExclusionList,
+        JobName = viewModel.JobName,
+        PrintDrawingRange = viewModel.PrintDrawingRange,
+        IsPrintDrawing = viewModel.IsPrintDrawing,
+        IsPrintModel = viewModel.IsPrintModel,
+        ActionPrintSettingsId = viewModel.PrintSettingsId,
+    };
+
+    public static ActionPrintViewModel ToViewModel(this ActionPrint entity) =>
+        new()
+        {
+            Id = entity.Id,
+            JobName = entity.JobName,
+            Description = entity.Description,
+            DrawingExclusionIsWhiteList = entity.DrawingExclusionIsWhiteList,
+            DrawingExclusionList = entity.DrawingExclusionList,
+            PrintDrawingRange = entity.PrintDrawingRange,
+            IsPrintDrawing = entity.IsPrintDrawing,
+            IsPrintModel = entity.IsPrintModel,
+            PrintSettingsId = entity.ActionPrintSettingsId,
+        };
 }

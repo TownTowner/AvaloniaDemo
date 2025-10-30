@@ -3,20 +3,8 @@ using System.Text.Json.Serialization;
 
 namespace AvaloniaSix.ViewModels;
 
-public partial class ActionTabPrintViewModel : ViewModelBase
+public partial class ActionPrintViewModel : ActionViewModelBase
 {
-    [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(HasChanged))]
-    private string _id = "";
-
-    [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(HasChanged))]
-    private string _jobName = "";
-
-    [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(HasChanged))]
-    private string _description = "";
-
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HasChanged))]
     private string _printDrawingRange = "";
@@ -41,13 +29,6 @@ public partial class ActionTabPrintViewModel : ViewModelBase
     private bool _isPrintDrawing;
 
     [ObservableProperty]
-    private bool _isNewItem;
-
-    [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HasChanged))]
     private string _printSettingsId = "";
-
-    [JsonIgnore]
-    public override bool HasChanged => IsNewItem || base.HasChanged;
-
 }
