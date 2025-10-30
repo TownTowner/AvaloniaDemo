@@ -30,5 +30,5 @@ public partial class ActionPrintViewModel : ActionViewModelBase
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HasChanged))]
-    private string _printSettingsId = "";
+    private string? _printSettingsId;
 }

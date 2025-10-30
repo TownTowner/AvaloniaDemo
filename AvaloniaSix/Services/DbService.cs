@@ -97,12 +97,11 @@ public class DbService : IDisposable
         return entity;
     }
 
-    public void DeletePrintListItem(ActionPrint entity)
+    public void DeletePrintListItem(string id)
     {
-        ArgumentNullException.ThrowIfNull(entity, nameof(entity));
-        ArgumentException.ThrowIfNullOrEmpty(entity.Id, nameof(entity.Id));
+        ArgumentException.ThrowIfNullOrEmpty(id, nameof(id));
 
-        var check = _dbContext.ActionPrints.Find(entity.Id);
+        var check = _dbContext.ActionPrints.Find(id);
         if (check == null) return;
 
         _dbContext.ActionPrints.Remove(check);
@@ -204,12 +203,11 @@ public class DbService : IDisposable
         return entity;
     }
 
-    public void DeletePrintSettings(ActionPrintSettings entity)
+    public void DeletePrintSettings(string id)
     {
-        ArgumentNullException.ThrowIfNull(entity, nameof(entity));
-        ArgumentException.ThrowIfNullOrEmpty(entity.Id, nameof(entity.Id));
+        ArgumentException.ThrowIfNullOrEmpty(id, nameof(id));
 
-        var check = _dbContext.ActionPrintSettingses.Find(entity.Id);
+        var check = _dbContext.ActionPrintSettingses.Find(id);
         if (check == null) return;
 
         _dbContext.ActionPrintSettingses.Remove(check);

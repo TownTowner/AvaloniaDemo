@@ -4,6 +4,7 @@ using AvaloniaSix.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing.Printing;
@@ -97,7 +98,11 @@ public partial class ActionsPageViewModel : PageViewModel
 
         var printList = _dbService.GetPrintList();
 
-        PrintList = new(printList.Select((Func<ActionPrint, ActionPrintViewModel>)(x =>
+        var defaultPrinter = default(ActionPrintSettings);
+        if (printList.Any(x => string.IsNullOrEmpty(x.ActionPrintSettingsId)))
+            defaultPrinter = _dbService.GetPrintSettings().FirstOrDefault();
+
+        PrintList = new(printList.Select(x =>
         {
             var vm = new ActionPrintViewModel()
             {
@@ -109,11 +114,11 @@ public partial class ActionsPageViewModel : PageViewModel
                 DrawingExclusionIsWhiteList = x.DrawingExclusionIsWhiteList,
                 IsPrintModel = x.IsPrintModel,
                 IsPrintDrawing = x.IsPrintDrawing,
-                PrintSettingsId = x.ActionPrintSettingsId ?? defaultSettings.Id
+                PrintSettingsId = x.ActionPrintSettingsId ?? defaultPrinter?.Id
             };
 
             return vm;
-        })));
+        }));
 
         PrintList.CollectionChanged += (_, _) =>
         {
@@ -122,7 +127,8 @@ public partial class ActionsPageViewModel : PageViewModel
 
         if (PrintList.Any())
         {
-            SelectedPrintItemId = PrintList.First().Id;
+            if (string.IsNullOrEmpty(SelectedPrintItemId))
+                SelectedPrintItemId = PrintList.First().Id;
 
             foreach (var item in PrintList)
                 item.SetSaveState();
@@ -137,21 +143,24 @@ public partial class ActionsPageViewModel : PageViewModel
     [RelayCommand]
     public void AddPrintItem()
     {
+        var printers = _dbService.GetPrintSettings();
         var item = new ActionPrintViewModel()
         {
             Id = Guid.NewGuid().ToString("N"),
             IsNewItem = true,
-            JobName = "New Job Print Item",
-            PrintSettingsId = defaultSettings.Id
+            JobName = "New Print Item",
+            PrintSettingsId = printers?.FirstOrDefault()?.Id
         };
+        PrintList = PrintList ?? new();
+        PrintList.Add(item);
+
         SelectedPrintItemId = item.Id;
-        PrintList?.Add(item);
     }
 
     [RelayCommand]
-    public async Task SavePrintItemAsync()
+    public Task SavePrintItem()
     {
-        if (SelectedPrintItem is null) return;
+        if (SelectedPrintItem is null) return Task.CompletedTask;
 
         var entity = SelectedPrintItem.ToEntity();
         if (SelectedPrintItem.IsNewItem)
@@ -160,19 +169,18 @@ public partial class ActionsPageViewModel : PageViewModel
             entity = _dbService.UpdatePrintListItem(entity);
 
         SelectedPrintItem.IsNewItem = false;
-        FetchPrintList();
-        SelectedPrintItemId = entity.Id;
         SelectedPrintItem.SetSaveState();
+
+        return Task.CompletedTask;
     }
 
     [RelayCommand]
     public async Task DeletePrintItemAsync(string id)
     {
         bool flowControl = await DeletePrintItemFromUiAsync(id, true);
-        if (!flowControl)
-        {
-            return;
-        }
+        if (!flowControl) return;
+
+        _dbService.DeletePrintListItem(id);
     }
 
     private async Task<bool> DeletePrintItemFromUiAsync(string id, bool warn = false)
@@ -290,13 +298,12 @@ public partial class ActionsPageViewModel : PageViewModel
     }
 
     [RelayCommand]
-    public async Task DeletePrintSettings(string id)
+    public async Task DeletePrintSettingsAsync(string id)
     {
         bool flowControl = await DeletePrintSettingsFromUiAsync(id, true);
-        if (!flowControl)
-        {
-            return;
-        }
+        if (!flowControl) return;
+
+        _dbService.DeletePrintSettings(id);
     }
 
     private async Task<bool> DeletePrintSettingsFromUiAsync(string id, bool warn = false)
